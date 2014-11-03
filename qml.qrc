@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Machineface/Machineface.qml</file>
+        <file>Machineface/description.ini</file>
+        <file>Machineface/ButtonJog.qml</file>
+        <file>Machineface/CustomStyle.qml</file>
+        <file>Machineface/JogSpeeds.qml</file>
+        <file>Machineface/DisplayPanel.qml</file>
+        <file>Machineface/PreviewTab.qml</file>
+        <file>Machineface/ExtrasTab.qml</file>
+        <file>Machineface/JogControlTab.qml</file>
+        <file>Machineface/ApplicationToolBar.qml</file>
+        <file>Machineface/MdiTab.qml</file>
+        <file>Machineface/GCodeTab.qml</file>
+        <file>Machineface/SettingsTab.qml</file>
+        <file>Machineface/icons/ic_cancel_white_48dp.png</file>
+        <file>Machineface/icons/ic_report_white_48dp.png</file>
+        <file>Machineface/icons/ic_settings_power_white_48dp.png</file>
+        <file>Machineface/icons/ic_folder_open_white_48dp.png</file>
+        <file>Machineface/icons/ic_refresh_white_48dp.png</file>
+        <file>Machineface/icons/ic_play_arrow_white_48dp.png</file>
+        <file>Machineface/icons/ic_skip_next_white_48dp.png</file>
+        <file>Machineface/icons/ic_stop_white_48dp.png</file>
+        <file>Machineface/icons/ic_pause_white_48dp.png</file>
+        <file>Machineface/ToggleSettingCheck.qml</file>
+        <file>Machineface/OverlayDialog.qml</file>
+        <file>Machineface/icons/material-icon-font.ttf</file>
+        <file>Machineface/icons/ic_info_outline_white_48dp.png</file>
+        <file>Machineface/AboutDialog.qml</file>
+        <file>Machineface/icons/ic_home_black_48dp.png</file>
+    </qresource>
+</RCC>

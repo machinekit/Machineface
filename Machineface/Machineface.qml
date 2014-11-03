@@ -1,0 +1,121 @@
+/****************************************************************************
+**
+** Copyright (C) 2014 Alexander Rössler
+** License: LGPL version 2.1
+**
+** This file is part of QtQuickVcp.
+**
+** All rights reserved. This program and the accompanying materials
+** are made available under the terms of the GNU Lesser General Public License
+** (LGPL) version 2.1 which accompanies this distribution, and is available at
+** http://www.gnu.org/licenses/lgpl-2.1.html
+**
+** This library is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+** Lesser General Public License for more details.
+**
+** Contributors:
+** Alexander Rössler @ The Cool Tool GmbH <mail DOT aroessler AT gmail DOT com>
+**
+****************************************************************************/
+import QtQuick 2.0
+import QtQuick.Controls 1.1
+import QtQuick.Layouts 1.1
+import QtQuick.Window 2.0
+import Machinekit.Controls 1.0
+import Machinekit.Application 1.0
+import Machinekit.Application.Controls 1.0
+import Machinekit.PathView 1.0
+
+ServiceWindow {
+    id: window
+    visible: true
+    width: 800
+    height: 600
+    title: qsTr("Machineface User Interface")
+
+    ApplicationCore {
+        id: applicationCore
+        notifications: applicationNotifications
+        applicationName: "Machineface"
+    }
+
+    PathViewCore {
+        id: pathViewCore
+    }
+
+    ApplicationToolBar {
+        id: toolBar
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        width: parent.height * 0.1
+    }
+
+    ApplicationFileDialog {
+        id: applicationFileDialog
+    }
+
+    TabView {
+        id: mainTab
+        frameVisible: false
+        anchors.left: toolBar.right
+        anchors.right: displayPanel.left
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.rightMargin: Screen.pixelDensity
+        anchors.leftMargin: Screen.pixelDensity / 2
+
+        JogControlTab { }
+        MdiTab { }
+        GCodeTab { }
+        PreviewTab { }
+        ExtrasTab { }
+        SettingsTab { }
+    }
+
+    DisplayPanel {
+        id: displayPanel
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: applicationProgressBar.top
+        width: parent.width * 0.25
+        anchors.margins: Screen.pixelDensity
+    }
+
+    ApplicationProgressBar {
+        id: applicationProgressBar
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        width: displayPanel.width
+        anchors.margins: Screen.pixelDensity
+    }
+
+    /*OverlayDialog {
+        id: overlayDialog
+        z: 100
+        width: parent.width * 0.9
+        height: parent.height * 0.9
+        anchors.centerIn: parent
+    }
+
+    Rectangle {
+        id: overlay
+        anchors.fill: parent
+        z: 99
+        color: "gray"
+        opacity: 0.6
+        visible: overlayDialog.visible
+    }*/
+
+    ApplicationNotifications {
+        id: applicationNotifications
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.top: parent.top
+        anchors.margins: Screen.pixelDensity * 3
+        messageWidth: parent.width * 0.25
+    }
+}
+
