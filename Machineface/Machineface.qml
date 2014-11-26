@@ -33,7 +33,12 @@ ServiceWindow {
     visible: true
     width: 800
     height: 600
-    title: qsTr("Machineface User Interface")
+    title: applicationCore.applicationName + (d.machineName == "" ? "" :" - " +  d.machineName)
+
+    QtObject {
+        id: d
+        property string machineName: applicationCore.status.config.name
+    }
 
     ApplicationCore {
         id: applicationCore
