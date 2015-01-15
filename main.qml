@@ -44,7 +44,7 @@ ApplicationWindow {
         defaultTitle: "Machineface"
         autoSelectInstance: false
         autoSelectApplication: true
-        remoteVisible: true
+        remoteVisible: false
         lookupMode: ServiceDiscovery.MulticastDNS
         applications: [
             ApplicationDescription {

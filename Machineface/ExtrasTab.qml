@@ -42,7 +42,7 @@ Tab {
                 text: qsTr("Calibrate")
                 enabled: filamentAction.enabled
                 onClicked: {
-                    filamentAction.mdiCommand = "M270"
+                    filamentAction.mdiCommand = "G29"
                     filamentAction.trigger()
                 }
             }
@@ -52,7 +52,7 @@ Tab {
                 text: qsTr("Probe")
                 enabled: filamentAction.enabled
                 onClicked: {
-                    filamentAction.mdiCommand = "M271"
+                    filamentAction.mdiCommand = "G30"
                     filamentAction.trigger()
                 }
             }

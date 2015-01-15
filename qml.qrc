@@ -29,5 +29,8 @@
         <file>Machineface/icons/ic_info_outline_white_48dp.png</file>
         <file>Machineface/AboutDialog.qml</file>
         <file>Machineface/icons/ic_home_black_48dp.png</file>
+        <file>Machineface/TemperatureControl.qml</file>
+        <file>Machineface/FanControl.qml</file>
+        <file>Machineface/LightControl.qml</file>
     </qresource>
 </RCC>
