@@ -6,6 +6,7 @@ import Machinekit.Application.Controls 1.0
 
 Tab {
     title: qsTr("Extras")
+    active: true
     Item {
         ColumnLayout {
             id: column1
@@ -95,6 +96,14 @@ Tab {
                 id: feedrateSlider
                 Layout.fillWidth: true
                 Layout.fillHeight: false
+            }
+
+            VelocityExtrudingControl {
+                id: velocityExtrudingControl
+            }
+
+            GantryConfigControl {
+                id: gantryConfigControl
             }
 
             Item {
