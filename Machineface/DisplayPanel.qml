@@ -15,25 +15,35 @@ ColumnLayout {
     }
 
     TemperatureControl {
-        componentName: "fdm-e0"
-        labelName: "Extruder 0"
-        logHeight: parent.height * 0.25
-    }
-
-    TemperatureControl {
         componentName: "fdm-hbp"
         labelName: "Heated Bed"
         logHeight: parent.height * 0.25
     }
 
-    FanControl {
-        componentName: "fdm-f0"
-        labelName: "Fan 0"
+    Repeater {
+        model: 10
+        TemperatureControl {
+            componentName: "fdm-e" + index
+            labelName: "Extruder " + index
+            logHeight: parent.height * 0.25
+        }
     }
 
-    LightControl {
-        componentName: "fdm-l0"
-        labelName: "Light 0"
+
+    Repeater {
+        model: 10
+        FanControl {
+            componentName: "fdm-f" + index
+            labelName: "Fan " + index
+        }
+    }
+
+    Repeater {
+        model: 3
+        LightControl {
+            componentName: "fdm-l" + index
+            labelName: "Light " + index
+        }
     }
 
     Item {
