@@ -5,7 +5,6 @@ import QtQuick.Window 2.0
 import Machinekit.HalRemote 1.0
 import Machinekit.HalRemote.Controls 1.0
 import Machinekit.Controls 1.0
-import Machinekit.Application.Controls 1.0
 import Machinekit.Service 1.0
 
 ColumnLayout {
@@ -73,12 +72,19 @@ ColumnLayout {
                 Layout.preferredWidth: tempSetLabel.height * 0.9
             }
 
-            HalLed {
-                name: "error"
+            Led {
+                value: errorPin.value
                 onColor: "red"
                 Layout.preferredHeight: tempSetLabel.height * 0.9
                 Layout.preferredWidth: tempSetLabel.height * 0.9
             }
+        }
+
+        HalPin {
+            id: errorPin
+            name: "error"
+            direction: HalPin.In
+            type: HalPin.Bit
         }
 
         HalPin {
@@ -149,6 +155,7 @@ ColumnLayout {
             HalSpinBox {
                 Layout.fillWidth: true
                 id: tempSetSpin
+                enabled: errorPin.value === false
                 name: "temp.set"
                 halPin.direction: HalPin.IO
                 minimumValue: tempItem.spinMinimumValue
@@ -164,7 +171,7 @@ ColumnLayout {
 
             Switch {
                 id: onOffSwitch
-                enabled: tempAction.enabled
+                enabled: errorPin.value === false
                 onCheckedChanged: {
                     if (checked) {
                         if (tempSetSpin.value == 0) {
@@ -180,11 +187,6 @@ ColumnLayout {
                     property: "checked"
                     value: tempSetSpin.value > 0.0
                 }
-            }
-
-            MdiCommandAction {
-                id: tempAction
-                enableHistory: false
             }
         }
     }
