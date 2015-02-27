@@ -10,7 +10,6 @@ RowLayout {
         font.bold: true
     }
 
-
     SpinBox {
         Layout.fillWidth: true
         id: xVelocitySpin
@@ -42,12 +41,14 @@ RowLayout {
     Label {
         text: qsTr("Z:")
         font.bold: true
+        visible: zVelocitySpin.visible
     }
 
     SpinBox {
         Layout.fillWidth: true
         id: zVelocitySpin
         enabled: zVelocityHandler.enabled
+        visible: zVelocityHandler.status.synced && (zVelocityHandler.status.config.axes > 2)
         minimumValue: zVelocityHandler.minimumValue
         maximumValue: zVelocityHandler.maximumValue
         suffix: zVelocityHandler.units
@@ -69,11 +70,13 @@ RowLayout {
     Label {
         text: qsTr("A:")
         font.bold: true
+        visible: aVelocitySpin.visible
     }
 
     SpinBox {
         Layout.fillWidth: true
         id: aVelocitySpin
+        visible: aVelocityHandler.status.synced && (aVelocityHandler.status.config.axes > 3)
         enabled: aVelocityHandler.enabled
         minimumValue: aVelocityHandler.minimumValue
         maximumValue: aVelocityHandler.maximumValue
