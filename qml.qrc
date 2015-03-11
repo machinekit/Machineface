@@ -32,7 +32,10 @@
         <file>Machineface/TemperatureControl.qml</file>
         <file>Machineface/FanControl.qml</file>
         <file>Machineface/LightControl.qml</file>
-        <file>Machineface/VelocityExtrudingControl.qml</file>
+        <file>Machineface/VelocityExtrusionControl.qml</file>
         <file>Machineface/GantryConfigControl.qml</file>
+        <file>Machineface/VideoTab.qml</file>
+        <file>Machineface/ApplicationMenuBar.qml</file>
+        <file>Machineface/icons/ic_more_horiz_white_48dp.png</file>
     </qresource>
 </RCC>

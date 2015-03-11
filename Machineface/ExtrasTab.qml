@@ -98,8 +98,8 @@ Tab {
                 Layout.fillHeight: false
             }
 
-            VelocityExtrudingControl {
-                id: velocityExtrudingControl
+            VelocityExtrusionControl {
+                id: velocityExtrusionControl
             }
 
             GantryConfigControl {

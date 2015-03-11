@@ -9,7 +9,7 @@ import Machinekit.Service 1.0
 
 ColumnLayout {
     id: root
-    property string labelName: "Velocity Extruding"
+    property string labelName: "Velocity Extrusion"
     visible: halRemoteComponent.ready && !halRemoteComponent.error
 
     Service {
