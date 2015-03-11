@@ -76,6 +76,7 @@ ServiceWindow {
         MdiTab { }
         GCodeTab { }
         PreviewTab { }
+        VideoTab { }
         ExtrasTab { }
         SettingsTab { }
     }
