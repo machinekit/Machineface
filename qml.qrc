@@ -35,7 +35,7 @@
         <file>Machineface/VelocityExtrusionControl.qml</file>
         <file>Machineface/GantryConfigControl.qml</file>
         <file>Machineface/VideoTab.qml</file>
-        <file>Machineface/ApplicationMenuBar.qml</file>
+        <file>Machineface/ApplicationMenu.qml</file>
         <file>Machineface/icons/ic_more_horiz_white_48dp.png</file>
     </qresource>
 </RCC>

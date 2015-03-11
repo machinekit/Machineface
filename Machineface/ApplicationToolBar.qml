@@ -83,8 +83,12 @@ Rectangle {
         TouchButton {
             Layout.fillWidth: true
             Layout.preferredHeight: width
-            onClicked: aboutDialog.open()
-            iconSource: "icons/ic_info_outline_white_48dp.png"
+            onClicked: applicationMenu.popup()
+            iconSource: "icons/ic_more_horiz_white_48dp.png"
+        }
+
+        ApplicationMenu {
+            id: applicationMenu
         }
 
         AboutDialog {
