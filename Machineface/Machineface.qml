@@ -97,23 +97,6 @@ ServiceWindow {
         anchors.margins: Screen.pixelDensity
     }
 
-    /*OverlayDialog {
-        id: overlayDialog
-        z: 100
-        width: parent.width * 0.9
-        height: parent.height * 0.9
-        anchors.centerIn: parent
-    }
-
-    Rectangle {
-        id: overlay
-        anchors.fill: parent
-        z: 99
-        color: "gray"
-        opacity: 0.6
-        visible: overlayDialog.visible
-    }*/
-
     ApplicationNotifications {
         id: applicationNotifications
         anchors.right: parent.right
