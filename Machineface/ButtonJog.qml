@@ -10,7 +10,8 @@ import Machinekit.HalRemote 1.0
 import Machinekit.HalRemote.Controls 1.0
 
 ApplicationItem {
-    property var numberModel: [0.1, 1, 10, "∞"]
+    property var numberModel: numberModelBase.concat(["∞"])
+    property var numberModelBase: status.synced ? status.config.increments.split(" ") : []
     property var numberModelReverse: {
         var tmp = numberModel.slice()
         tmp.reverse()
@@ -51,13 +52,12 @@ ApplicationItem {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Screen.pixelDensity
+        visible: root.status.synced
 
         Item {
             id: container
-            anchors.left: parent.left
-            anchors.right: parent.right
-            //anchors.verticalCenter: parent.verticalCenter
-            height: Math.min(width / 1.6, parent.height)
+            Layout.fillWidth: true
+            Layout.preferredHeight: Math.min(width / 1.6, parent.height)
 
             Item {
                 id: mainItem
@@ -119,6 +119,7 @@ ApplicationItem {
                 }
 
                 RowLayout {
+                    id: xAxisRightLayout
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     width: parent.height / (numberModel.length*2+1) * numberModel.length
@@ -128,7 +129,7 @@ ApplicationItem {
                         model: numberModel
                         JogButton {
                             Layout.fillWidth: true
-                            Layout.preferredHeight: parent.height / numberModel.length * (index+1)
+                            Layout.preferredHeight: xAxisRightLayout.height / numberModel.length * (index+1)
                             text: numberModel[index]
                             axis: 0
                             distance: numberModel[index] === "∞" ? 0 : numberModel[index]
@@ -139,6 +140,7 @@ ApplicationItem {
                 }
 
                 RowLayout {
+                    id: xAxisLeftLayout
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                     width: parent.height / (numberModel.length*2+1) * numberModel.length
@@ -148,7 +150,7 @@ ApplicationItem {
                         model: numberModelReverse
                         JogButton {
                             Layout.fillWidth: true
-                            Layout.preferredHeight: parent.width / numberModel.length * (numberModel.length-index)
+                            Layout.preferredHeight: xAxisLeftLayout.width / numberModel.length * (numberModel.length-index)
                             text: "-" + numberModelReverse[index]
                             axis: 0
                             distance: numberModelReverse[index] === "∞" ? 0 : numberModelReverse[index]
@@ -159,6 +161,7 @@ ApplicationItem {
                 }
 
                 ColumnLayout {
+                    id: yAxisTopLayout
                     anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
                     height: parent.height / (numberModel.length*2+1) * numberModel.length
@@ -167,7 +170,7 @@ ApplicationItem {
                     Repeater {
                         model: numberModelReverse
                         JogButton {
-                            Layout.preferredWidth: parent.width / numberModel.length * (numberModel.length-index)
+                            Layout.preferredWidth: yAxisTopLayout.width / numberModel.length * (numberModel.length-index)
                             Layout.fillHeight: true
                             Layout.alignment: Qt.AlignHCenter
                             text: numberModelReverse[index]
@@ -180,6 +183,7 @@ ApplicationItem {
                 }
 
                 ColumnLayout {
+                    id: yAxisBottomLayout
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
                     height: parent.height / (numberModel.length*2+1) * numberModel.length
@@ -188,7 +192,7 @@ ApplicationItem {
                     Repeater {
                         model: numberModel
                         JogButton {
-                            Layout.preferredWidth: parent.width / numberModel.length * (index+1)
+                            Layout.preferredWidth: yAxisBottomLayout.width / numberModel.length * (index+1)
                             Layout.fillHeight: true
                             Layout.alignment: Qt.AlignHCenter
                             text: "-" + numberModel[index]
@@ -202,14 +206,18 @@ ApplicationItem {
             }
 
             RowLayout {
+                property int axes: status.synced ? status.config.axes - 2 : 2
+
+                id: axisRowLayout
                 anchors.left: mainItem.right
-                anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 anchors.top: parent.top
                 anchors.leftMargin: parent.height * 0.03
+                width: parent.height * 0.20 * axisRowLayout.axes
+                spacing: parent.height * 0.03
 
                 Repeater {
-                    model: status.synced ? status.config.axes - 2 : 2
+                    model: axisRowLayout.axes
 
                     Item {
                         property int axisIndex: index
@@ -223,6 +231,7 @@ ApplicationItem {
                         }
 
                         ColumnLayout {
+                            id: axisTopLayout
                             anchors.top: parent.top
                             anchors.left: parent.left
                             height: parent.height / (numberModel.length*2+1) * numberModel.length
@@ -231,7 +240,7 @@ ApplicationItem {
                             Repeater {
                                 model: numberModelReverse
                                 JogButton {
-                                    Layout.preferredWidth: parent.height / numberModel.length * ((numberModel.length - index - 1) * 0.2 + 1)
+                                    Layout.preferredWidth: axisTopLayout.height / numberModel.length * ((numberModel.length - index - 1) * 0.2 + 1)
                                     Layout.fillHeight: true
                                     Layout.alignment: Qt.AlignHCenter
                                     text: numberModelReverse[index]
@@ -244,6 +253,7 @@ ApplicationItem {
                         }
 
                         ColumnLayout {
+                            id: axisBottomLayout
                             anchors.bottom: parent.bottom
                             anchors.horizontalCenter: parent.horizontalCenter
                             height: parent.height / (numberModel.length*2+1) * numberModel.length
@@ -252,7 +262,7 @@ ApplicationItem {
                             Repeater {
                                 model: numberModel
                                 JogButton {
-                                    Layout.preferredWidth: parent.height / numberModel.length * (index*0.2+1)
+                                    Layout.preferredWidth: axisBottomLayout.height / numberModel.length * (index*0.2+1)
                                     Layout.fillHeight: true
                                     Layout.alignment: Qt.AlignHCenter
                                     text: "-" + numberModel[index]
@@ -266,149 +276,150 @@ ApplicationItem {
                     }
                 }
 
-                Item {
-                    property int axisIndex: status.synced ? status.config.axes : 0
-                    property double extruderVelocity: 5.0
+              }
+            Item {
+                property int axisIndex: status.synced ? status.config.axes : 0
+                property double extruderVelocity: 5.0
 
-                    id: extruderControl
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.alignment: Qt.AlignRight
-                    visible: eVisible
+                id: extruderControl
+                anchors.left: axisRowLayout.right
+                anchors.bottom: parent.bottom
+                anchors.top: parent.top
+                anchors.leftMargin: parent.height * 0.03
+                width: parent.height * 0.20
+                visible: eVisible
 
-                    HalPin {
-                        id: jogVelocityPin
-                        name: "velocity"
-                        direction: HalPin.IO
-                        type: HalPin.Float
-                    }
+                HalPin {
+                    id: jogVelocityPin
+                    name: "velocity"
+                    direction: HalPin.IO
+                    type: HalPin.Float
+                }
 
-                    HalPin {
-                        id: jogDistancePin
-                        name: "distance"
-                        direction: HalPin.IO
-                        type: HalPin.Float
-                    }
+                HalPin {
+                    id: jogDistancePin
+                    name: "distance"
+                    direction: HalPin.IO
+                    type: HalPin.Float
+                }
 
-                    HalPin {
-                        id: jogDirectionPin
-                        name: "direction"
-                        direction: HalPin.IO
-                        type: HalPin.Bit
-                    }
+                HalPin {
+                    id: jogDirectionPin
+                    name: "direction"
+                    direction: HalPin.IO
+                    type: HalPin.Bit
+                }
 
-                    HalPin {
-                        id: jogTriggerPin
-                        name: "trigger"
-                        direction: HalPin.IO
-                        type: HalPin.Bit
-                    }
+                HalPin {
+                    id: jogTriggerPin
+                    name: "trigger"
+                    direction: HalPin.IO
+                    type: HalPin.Bit
+                }
 
-                    HalPin {
-                        id: jogContinousPin
-                        name: "continous"
-                        direction: HalPin.Out
-                        type: HalPin.Bit
-                    }
+                HalPin {
+                    id: jogContinousPin
+                    name: "continous"
+                    direction: HalPin.Out
+                    type: HalPin.Bit
+                }
 
-                    HalPin {
-                        id: jogDtgPin
-                        name: "dtg"
-                        direction: HalPin.In
-                        type: HalPin.Float
-                    }
+                HalPin {
+                    id: jogDtgPin
+                    name: "dtg"
+                    direction: HalPin.In
+                    type: HalPin.Float
+                }
 
-                    HalPin {
-                        id: jogMaxVelocityPin
-                        name: "max-velocity"
-                        direction: HalPin.In
-                        type: HalPin.Float
-                    }
+                HalPin {
+                    id: jogMaxVelocityPin
+                    name: "max-velocity"
+                    direction: HalPin.In
+                    type: HalPin.Float
+                }
 
-                    HalPin {
-                        id: jogExtruderEnable
-                        name: "extruder-en"
-                        direction: HalPin.IO
-                        type: HalPin.Bit
-                    }
+                Label {
+                    anchors.centerIn: parent
+                    text: eName
+                    font.bold: true
+                }
 
-                    Label {
-                        anchors.centerIn: parent
-                        text: eName
-                        font.bold: true
-                    }
+                ColumnLayout {
+                    id: extruderTopLayout
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    height: parent.height / (numberModel.length*2+1) * numberModel.length
+                    width: parent.width
+                    spacing: 0
 
-                    ColumnLayout {
-                        anchors.top: parent.top
-                        anchors.left: parent.left
-                        height: parent.height / (numberModel.length*2+1) * numberModel.length
-                        width: parent.width
-                        spacing: 0
-
-                        Repeater {
-                            model: numberModelReverse
-                            Button {
-                                property double distance: numberModelReverse[index] === "∞" ? 0 : numberModelReverse[index]
-                                property bool direction: false
-                                Layout.preferredWidth: parent.height / numberModel.length * ((numberModel.length - index - 1) * 0.2 + 1)
-                                Layout.fillHeight: true
-                                Layout.alignment: Qt.AlignHCenter
-                                enabled: homeXButton.enabled
-                                text: numberModelReverse[index]
-                                style: CustomStyle { baseColor: axisColors[extruderControl.axisIndex]; darkness: (numberModel.length-index-1)*0.06 }
-                                onClicked: {
-                                    if (distance !== 0) {
-                                        jogDistancePin.value = distance
-                                        jogDirectionPin.value = direction
-                                        jogTriggerPin.value = !jogTriggerPin.value
-                                    }
+                    Repeater {
+                        model: numberModelReverse
+                        Button {
+                            property double distance: numberModelReverse[index] === "∞" ? 0 : numberModelReverse[index]
+                            property bool direction: false
+                            Layout.preferredWidth: extruderTopLayout.height / numberModel.length * ((numberModel.length - index - 1) * 0.2 + 1)
+                            Layout.fillHeight: true
+                            Layout.alignment: Qt.AlignHCenter
+                            enabled: homeXButton.enabled
+                            text: numberModelReverse[index]
+                            style: CustomStyle { baseColor: axisColors[extruderControl.axisIndex]; darkness: (numberModel.length-index-1)*0.06 }
+                            onClicked: {
+                                if (distance !== 0) {
+                                    jogDistancePin.value = distance
+                                    jogDirectionPin.value = direction
+                                    jogTriggerPin.value = !jogTriggerPin.value
                                 }
-                                onPressedChanged: {
-                                    if (distance === 0) {
-                                        jogDirectionPin.value = direction
-                                        jogContinousPin.value = pressed
-                                    }
+                            }
+                            onPressedChanged: {
+                                if (distance === 0) {
+                                    jogDirectionPin.value = direction
+                                    jogContinousPin.value = pressed
                                 }
                             }
                         }
                     }
+                }
 
-                    ColumnLayout {
-                        anchors.bottom: parent.bottom
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        height: parent.height / (numberModel.length*2+1) * numberModel.length
-                        width: parent.width
-                        spacing: 0
+                ColumnLayout {
+                    id: extruderBottomLayout
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    height: parent.height / (numberModel.length*2+1) * numberModel.length
+                    width: parent.width
+                    spacing: 0
 
-                        Repeater {
-                            model: numberModel
-                            Button {
-                                property double distance: numberModel[index] === "∞" ? 0 : numberModel[index]
-                                property bool direction: true
-                                Layout.preferredWidth: parent.height / numberModel.length * (index*0.2+1)
-                                Layout.fillHeight: true
-                                Layout.alignment: Qt.AlignHCenter
-                                enabled: homeXButton.enabled
-                                text: "-" + numberModel[index]
-                                style: CustomStyle { baseColor: axisColors[extruderControl.axisIndex]; darkness: index*0.06 }
-                                onClicked: {
-                                    if (distance !== 0) {
-                                        jogDistancePin.value = distance
-                                        jogDirectionPin.value = direction
-                                        jogTriggerPin.value = !jogTriggerPin.value
-                                    }
+                    Repeater {
+                        model: numberModel
+                        Button {
+                            property double distance: numberModel[index] === "∞" ? 0 : numberModel[index]
+                            property bool direction: true
+                            Layout.preferredWidth: extruderBottomLayout.height / numberModel.length * (index*0.2+1)
+                            Layout.fillHeight: true
+                            Layout.alignment: Qt.AlignHCenter
+                            enabled: homeXButton.enabled
+                            text: "-" + numberModel[index]
+                            style: CustomStyle { baseColor: axisColors[extruderControl.axisIndex]; darkness: index*0.06 }
+                            onClicked: {
+                                if (distance !== 0) {
+                                    jogDistancePin.value = distance
+                                    jogDirectionPin.value = direction
+                                    jogTriggerPin.value = !jogTriggerPin.value
                                 }
-                                onPressedChanged: {
-                                    if (distance === 0) {
-                                        jogDirectionPin.value = direction
-                                        jogContinousPin.value = pressed
-                                    }
+                            }
+                            onPressedChanged: {
+                                if (distance === 0) {
+                                    jogDirectionPin.value = direction
+                                    jogContinousPin.value = pressed
                                 }
                             }
                         }
                     }
                 }
             }
+
+        }
+        Item {
+            Layout.fillHeight: true
         }
 
         Label {

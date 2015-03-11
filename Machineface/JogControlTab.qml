@@ -5,7 +5,7 @@ import QtQuick.Window 2.0
 
 Tab {
     id: tab
-    title: qsTr("Jog Control")
+    title: qsTr("Jog")
 
     ButtonJog {
 
