@@ -354,28 +354,17 @@ ApplicationItem {
 
                     Repeater {
                         model: numberModelReverse
-                        Button {
-                            property double distance: numberModelReverse[index] === "∞" ? 0 : numberModelReverse[index]
-                            property bool direction: false
-                            Layout.preferredWidth: extruderTopLayout.height / numberModel.length * ((numberModel.length - index - 1) * 0.2 + 1)
+                        ExtruderJogButton {
+                            Layout.preferredWidth: extruderBottomLayout.height / numberModel.length * ((numberModel.length - index - 1) * 0.2 + 1)
                             Layout.fillHeight: true
                             Layout.alignment: Qt.AlignHCenter
+                            distance: numberModelReverse[index] === "∞" ? 0 : numberModelReverse[index]
+                            direction: true
                             enabled: homeXButton.enabled
-                            text: numberModelReverse[index]
-                            style: CustomStyle { baseColor: axisColors[extruderControl.axisIndex]; darkness: (numberModel.length-index-1)*0.06 }
-                            onClicked: {
-                                if (distance !== 0) {
-                                    jogDistancePin.value = distance
-                                    jogDirectionPin.value = direction
-                                    jogTriggerPin.value = !jogTriggerPin.value
-                                }
-                            }
-                            onPressedChanged: {
-                                if (distance === 0) {
-                                    jogDirectionPin.value = direction
-                                    jogContinousPin.value = pressed
-                                }
-                            }
+                            text: "-" + numberModelReverse[index]
+                            style: CustomStyle {
+                                baseColor: axisColors[extruderControl.axisIndex];
+                                darkness: (numberModel.length-index-1)*0.06 }
                         }
                     }
                 }
@@ -390,27 +379,17 @@ ApplicationItem {
 
                     Repeater {
                         model: numberModel
-                        Button {
-                            property double distance: numberModel[index] === "∞" ? 0 : numberModel[index]
-                            property bool direction: true
+                        ExtruderJogButton {
                             Layout.preferredWidth: extruderBottomLayout.height / numberModel.length * (index*0.2+1)
                             Layout.fillHeight: true
                             Layout.alignment: Qt.AlignHCenter
+                            distance: numberModel[index] === "∞" ? 0 : numberModel[index]
+                            direction: false
                             enabled: homeXButton.enabled
-                            text: "-" + numberModel[index]
-                            style: CustomStyle { baseColor: axisColors[extruderControl.axisIndex]; darkness: index*0.06 }
-                            onClicked: {
-                                if (distance !== 0) {
-                                    jogDistancePin.value = distance
-                                    jogDirectionPin.value = direction
-                                    jogTriggerPin.value = !jogTriggerPin.value
-                                }
-                            }
-                            onPressedChanged: {
-                                if (distance === 0) {
-                                    jogDirectionPin.value = direction
-                                    jogContinousPin.value = pressed
-                                }
+                            text: numberModel[index]
+                            style: CustomStyle {
+                                baseColor: axisColors[extruderControl.axisIndex];
+                                darkness: index*0.06
                             }
                         }
                     }
@@ -541,7 +520,6 @@ ApplicationItem {
                     label.focus = true
                 }
             }
-
         }
     }
 
