@@ -38,5 +38,7 @@
         <file>Machineface/ApplicationMenu.qml</file>
         <file>Machineface/icons/ic_more_horiz_white_48dp.png</file>
         <file>Machineface/ExtruderJogButton.qml</file>
+        <file>Machineface/icons/ic_home_grey600_48dp.png</file>
+        <file>Machineface/HomeButton.qml</file>
     </qresource>
 </RCC>

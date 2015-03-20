@@ -72,50 +72,45 @@ ApplicationItem {
                     font.bold: true
                 }
 
-                Button {
+                HomeButton {
                     id: homeXButton
                     anchors.left: parent.left
                     anchors.top: parent.top
-                    action: HomeAxisAction {axis: 0}
-                    text: "X"
                     width: parent.height * 0.2
                     height: width
-                    style: CustomStyle { baseColor: axisColors[0] }
-                    iconSource: "icons/ic_home_black_48dp.png"
+                    axis: 0
+                    axisName: "X"
+                    color: axisColors[0]
                 }
 
-                Button {
+                HomeButton {
                     anchors.right: parent.right
                     anchors.top: parent.top
-                    action: HomeAxisAction {axis: 1}
-                    text: "Y"
                     width: parent.height * 0.2
                     height: width
-                    style: CustomStyle { baseColor: axisColors[1] }
-                    iconSource: "icons/ic_home_black_48dp.png"
+                    axis: 1
+                    axisName: "Y"
+                    color: axisColors[1]
                 }
 
-                Button {
+                HomeButton {
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
-                    visible: zVisible
-                    action: HomeAxisAction {axis: 2}
-                    text: "Z"
                     width: parent.height * 0.2
                     height: width
-                    style: CustomStyle { baseColor: axisColors[2] }
-                    iconSource: "icons/ic_home_black_48dp.png"
+                    axis: 2
+                    axisName: "Z"
+                    color: axisColors[2]
                 }
 
-                Button {
+                HomeButton {
                     anchors.left: parent.left
                     anchors.bottom: parent.bottom
-                    action: HomeAxisAction {axis: -1}
-                    text: "All"
                     width: parent.height * 0.2
                     height: width
-                    style: CustomStyle { baseColor: allColor }
-                    iconSource: "icons/ic_home_black_48dp.png"
+                    axis: -1
+                    axisName: "All"
+                    color: "white"
                 }
 
                 RowLayout {

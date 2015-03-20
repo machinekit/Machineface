@@ -6,6 +6,7 @@ import QtQuick.Window 2.0
 ButtonStyle {
     property double darkness: 0.0
     property color baseColor: "red"
+    property color textColor: systemPalette.text
 
     id: root
 
@@ -44,6 +45,7 @@ ButtonStyle {
             horizontalAlignment: control.iconSource == "" ? "AlignHCenter" : "AlignRight"
             verticalAlignment: control.iconSource == "" ? "AlignVCenter" : "AlignBottom"
             text: control.text
+            color: root.textColor
             font.bold: control.iconSource == "" ? false : true
         }
     }
