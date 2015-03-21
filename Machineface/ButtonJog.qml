@@ -8,6 +8,7 @@ import Machinekit.Application.Controls 1.0
 import Machinekit.Service 1.0
 import Machinekit.HalRemote 1.0
 import Machinekit.HalRemote.Controls 1.0
+import QtKnobs 1.0
 
 ApplicationItem {
     property var numberModel: numberModelBase.concat(["∞"])
@@ -392,128 +393,58 @@ ApplicationItem {
             }
 
         }
-        Item {
-            Layout.fillHeight: true
-        }
-
-        Label {
-            text: qsTr("Jog Speed")
-            id: label
-        }
 
         RowLayout {
             Label {
-                text: axisNames[0] + "/" + axisNames[1]
+                text: qsTr("Velocity" ) //+ xVelocityKnob.units)
                 font.bold: true
             }
 
-            SpinBox {
-                Layout.fillWidth: true
-                id: xVelocitySpin
-                enabled: xVelocityHandler.enabled
-                minimumValue: xVelocityHandler.minimumValue
-                maximumValue: xVelocityHandler.maximumValue
-                suffix: xVelocityHandler.units
+            Repeater {
+                model: status.synced ? status.config.axes : 0
 
-                onEditingFinished: {            // remove the focus from this control
-                    label.forceActiveFocus()
-                    label.focus = true
-                }
+                RowLayout {
+                    Layout.fillHeight: true
+                    Label {
+                        Layout.fillHeight: true
+                        verticalAlignment: Text.AlignTop
+                        text: axisNames[index]
+                        font.bold: true
+                    }
 
-                Binding { target: xVelocitySpin; property: "value"; value: xVelocityHandler.value }
-                Binding { target: xVelocityHandler; property: "value"; value: xVelocitySpin.value }
-                Binding { target: yVelocityHandler; property: "value"; value: xVelocitySpin.value }
-
-                JogVelocityHandler {
-                    id: xVelocityHandler
-                    axis: 0
-                }
-
-                JogVelocityHandler {
-                    id: yVelocityHandler
-                    axis: 1
+                    JogVelocityKnob {
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: height
+                        color: axisColors[index]
+                        axis: index
+                    }
                 }
             }
 
             Label {
-                text: axisNames[2]
-                font.bold: true
-                visible: zVisible
-            }
-
-            SpinBox {
-                Layout.fillWidth: true
-                id: zVelocitySpin
-                enabled: zVelocityHandler.enabled
-                visible: zVisible
-                minimumValue: zVelocityHandler.minimumValue
-                maximumValue: zVelocityHandler.maximumValue
-                suffix: zVelocityHandler.units
-
-                onEditingFinished: {            // remove the focus from this control
-                    label.forceActiveFocus()
-                    label.focus = true
-                }
-
-                Binding { target: zVelocitySpin; property: "value"; value: zVelocityHandler.value }
-                Binding { target: zVelocityHandler; property: "value"; value: zVelocitySpin.value }
-
-                JogVelocityHandler {
-                    id: zVelocityHandler
-                    axis: 2
-                }
-            }
-
-            Label {
-                text: axisNames[3]
-                font.bold: true
-                visible: aVisible
-            }
-
-            SpinBox {
-                Layout.fillWidth: true
-                id: aVelocitySpin
-                visible: aVisible
-                enabled: aVelocityHandler.enabled
-                minimumValue: aVelocityHandler.minimumValue
-                maximumValue: aVelocityHandler.maximumValue
-                suffix: aVelocityHandler.units
-
-                onEditingFinished: {            // remove the focus from this control
-                    label.forceActiveFocus()
-                    label.focus = true
-                }
-
-                Binding { target: aVelocitySpin; property: "value"; value: aVelocityHandler.value }
-                Binding { target: aVelocityHandler; property: "value"; value: aVelocitySpin.value }
-
-                JogVelocityHandler {
-                    id: aVelocityHandler
-                    axis: 3
-                }
-            }
-
-            Label {
+                Layout.fillHeight: true
+                verticalAlignment: Text.AlignTop
                 text: eName
                 font.bold: true
                 visible: eVisible
             }
 
-            SpinBox {
-                id: jogVelocitySpin
-                Layout.fillWidth: true
+            JogKnob {
+                id: jogVelocityKnob
+                Layout.fillHeight: true
+                Layout.preferredWidth: height
                 visible: eVisible
-                minimumValue: 0
+                minimumValue: 1
                 maximumValue: jogMaxVelocityPin.value
-                suffix: eUnits
+                color: axisColors[extruderControl.axisIndex]
 
-                Binding { target: jogVelocityPin; property: "value"; value: jogVelocitySpin.value }
-                Binding { target: jogVelocitySpin; property: "value"; value: jogVelocityPin.value }
+                Binding { target: jogVelocityPin; property: "value"; value: jogVelocityKnob.value }
+                Binding { target: jogVelocityKnob; property: "value"; value: jogVelocityPin.value }
+            }
 
-                onEditingFinished: {            // remove the focus from this control
-                    label.forceActiveFocus()
-                    label.focus = true
-                }
+            Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
             }
         }
     }

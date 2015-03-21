@@ -5,7 +5,6 @@
         <file>Machineface/description.ini</file>
         <file>Machineface/ButtonJog.qml</file>
         <file>Machineface/CustomStyle.qml</file>
-        <file>Machineface/JogSpeeds.qml</file>
         <file>Machineface/DisplayPanel.qml</file>
         <file>Machineface/PreviewTab.qml</file>
         <file>Machineface/ExtrasTab.qml</file>
@@ -40,5 +39,7 @@
         <file>Machineface/ExtruderJogButton.qml</file>
         <file>Machineface/icons/ic_home_grey600_48dp.png</file>
         <file>Machineface/HomeButton.qml</file>
+        <file>Machineface/JogVelocityKnob.qml</file>
+        <file>Machineface/JogKnob.qml</file>
     </qresource>
 </RCC>
