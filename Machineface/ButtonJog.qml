@@ -80,7 +80,7 @@ ApplicationItem {
                     width: parent.height * 0.2
                     height: width
                     axis: 0
-                    axisName: "X"
+                    axisName: axisNames[0]
                     color: axisColors[0]
                 }
 
@@ -90,7 +90,7 @@ ApplicationItem {
                     width: parent.height * 0.2
                     height: width
                     axis: 1
-                    axisName: "Y"
+                    axisName: axisNames[1]
                     color: axisColors[1]
                 }
 
@@ -100,7 +100,7 @@ ApplicationItem {
                     width: parent.height * 0.2
                     height: width
                     axis: 2
-                    axisName: "Z"
+                    axisName: axisNames[2]
                     color: axisColors[2]
                 }
 
