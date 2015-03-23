@@ -395,6 +395,7 @@ ApplicationItem {
         }
 
         RowLayout {
+            spacing: Screen.pixelDensity * 3
             Label {
                 text: qsTr("Velocity" ) //+ xVelocityKnob.units)
                 font.bold: true
@@ -403,30 +404,13 @@ ApplicationItem {
             Repeater {
                 model: status.synced ? status.config.axes : 0
 
-                RowLayout {
+                JogVelocityKnob {
                     Layout.fillHeight: true
-                    Label {
-                        Layout.fillHeight: true
-                        verticalAlignment: Text.AlignTop
-                        text: axisNames[index]
-                        font.bold: true
-                    }
-
-                    JogVelocityKnob {
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: height
-                        color: axisColors[index]
-                        axis: index
-                    }
+                    Layout.preferredWidth: height
+                    color: axisColors[index]
+                    axis: index
+                    axisName: axisNames[index]
                 }
-            }
-
-            Label {
-                Layout.fillHeight: true
-                verticalAlignment: Text.AlignTop
-                text: eName
-                font.bold: true
-                visible: eVisible
             }
 
             JogKnob {
@@ -437,6 +421,7 @@ ApplicationItem {
                 minimumValue: 1
                 maximumValue: jogMaxVelocityPin.value
                 color: axisColors[extruderControl.axisIndex]
+                axisName: eName
 
                 Binding { target: jogVelocityPin; property: "value"; value: jogVelocityKnob.value }
                 Binding { target: jogVelocityKnob; property: "value"; value: jogVelocityPin.value }
