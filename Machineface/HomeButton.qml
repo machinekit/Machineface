@@ -13,7 +13,11 @@ Button {
 
     action: HomeAxisAction { id: homeAction; axis: root.axis }
     text: axisName
-    style: CustomStyle { baseColor: color; textColor: !homeAction.homed ? systemPalette.text : "gray" }
+    style: CustomStyle {
+        baseColor: color
+        textColor: !homeAction.homed ? systemPalette.text : "gray"
+        boldFont: true
+    }
     iconSource: !homeAction.homed ? "icons/ic_home_black_48dp.png" : "icons/ic_home_grey600_48dp.png"
 }
 
