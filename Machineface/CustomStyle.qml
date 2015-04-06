@@ -7,6 +7,8 @@ ButtonStyle {
     property double darkness: 0.0
     property color baseColor: "red"
     property color textColor: systemPalette.text
+    property int radius: -1
+    property bool boldFont: false
 
     id: root
 
@@ -15,11 +17,12 @@ ButtonStyle {
     }
 
     background: Rectangle {
+        id: rect
         implicitWidth: 100
         implicitHeight: 25
         border.width: control.activeFocus ? 2 : 1
         border.color: Qt.darker(baseColor, 1.1+darkness)
-        radius: Screen.pixelDensity
+        radius: root.radius == -1 ? Screen.pixelDensity : root.radius
         gradient: Gradient {
             GradientStop { position: 0 ; color: (control.pressed || control.checked) ?
                                                     Qt.darker(baseColor, 1.05+darkness) :
@@ -41,12 +44,12 @@ ButtonStyle {
         }
         Label {
             anchors.fill: parent
-            anchors.margins: parent.width * 0.06
+            anchors.margins: control.iconSource == "" ? 0 : parent.width * 0.06
             horizontalAlignment: control.iconSource == "" ? "AlignHCenter" : "AlignRight"
             verticalAlignment: control.iconSource == "" ? "AlignVCenter" : "AlignBottom"
             text: control.text
             color: root.textColor
-            font.bold: control.iconSource == "" ? false : true
+            font.bold: root.boldFont
         }
     }
 }
