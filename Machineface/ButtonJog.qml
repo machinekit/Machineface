@@ -20,12 +20,14 @@ ApplicationItem {
     }
     property var axisColors: ["#F5A9A9", "#A9F5F2", "#81F781", "#D2B48C"]
     property color allColor: "#DDD"
+    property color specialColor: "#FFFF88"
     property var axisNames: ["X", "Y", "Z", "A"]
     property string eName: "E"
     property string eUnits: "mm/s"
     property bool zVisible: status.synced ? status.config.axes > 2 : true
     property bool aVisible: status.synced ? status.config.axes > 3 : true
     property bool eVisible: halRemoteComponent.connected
+    property int buttonBaseHeight: container.height / (numberModel.length*2+1)
 
     id: root
 
@@ -67,10 +69,21 @@ ApplicationItem {
                 anchors.bottom: parent.bottom
                 width: height
 
-                Label {
+                Button {
                     anchors.centerIn: parent
+                    height: root.buttonBaseHeight * 0.95
+                    width: height
                     text: axisNames[0] + axisNames[1]
-                    font.bold: true
+                    style: CustomStyle { baseColor: root.specialColor; radius: 1000; boldFont: true }
+                    enabled: xyZeroAction.enabled
+
+                    onClicked: xyZeroAction.trigger()
+
+                    MdiCommandAction {
+                        id: xyZeroAction
+                        mdiCommand: "G0 " + axisNames[0] + "0 " + axisNames[1] + "0"
+                        enableHistory: false
+                    }
                 }
 
                 HomeButton {
@@ -118,7 +131,7 @@ ApplicationItem {
                     id: xAxisRightLayout
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    width: parent.height / (numberModel.length*2+1) * numberModel.length
+                    width: root.buttonBaseHeight * numberModel.length
                     height: width
                     spacing: 0
                     Repeater {
@@ -139,7 +152,7 @@ ApplicationItem {
                     id: xAxisLeftLayout
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
-                    width: parent.height / (numberModel.length*2+1) * numberModel.length
+                    width: root.buttonBaseHeight * numberModel.length
                     height: width
                     spacing: 0
                     Repeater {
@@ -160,7 +173,7 @@ ApplicationItem {
                     id: yAxisTopLayout
                     anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
-                    height: parent.height / (numberModel.length*2+1) * numberModel.length
+                    height: root.buttonBaseHeight * numberModel.length
                     width: height
                     spacing: 0
                     Repeater {
@@ -182,7 +195,7 @@ ApplicationItem {
                     id: yAxisBottomLayout
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    height: parent.height / (numberModel.length*2+1) * numberModel.length
+                    height: root.buttonBaseHeight * numberModel.length
                     width: height
                     spacing: 0
                     Repeater {
@@ -220,17 +233,28 @@ ApplicationItem {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
 
-                        Label {
+                        Button {
                             anchors.centerIn: parent
-                            text: axisNames[2+axisIndex]
-                            font.bold: true
+                            height: root.buttonBaseHeight * 0.95
+                            width: height
+                            text: axisNames[2+index]
+                            style: CustomStyle { baseColor: root.specialColor; radius: 1000; boldFont: true }
+                            enabled: zZeroAction.enabled
+
+                            onClicked: zZeroAction.trigger()
+
+                            MdiCommandAction {
+                                id: zZeroAction
+                                mdiCommand: "G10 L20 P0 " + axisNames[2+index] + "0"
+                                enableHistory: false
+                            }
                         }
 
                         ColumnLayout {
                             id: axisTopLayout
                             anchors.top: parent.top
                             anchors.left: parent.left
-                            height: parent.height / (numberModel.length*2+1) * numberModel.length
+                            height: root.buttonBaseHeight * numberModel.length
                             width: parent.width
                             spacing: 0
                             Repeater {
@@ -252,7 +276,7 @@ ApplicationItem {
                             id: axisBottomLayout
                             anchors.bottom: parent.bottom
                             anchors.horizontalCenter: parent.horizontalCenter
-                            height: parent.height / (numberModel.length*2+1) * numberModel.length
+                            height: root.buttonBaseHeight * numberModel.length
                             width: parent.width
                             spacing: 0
                             Repeater {
@@ -338,13 +362,14 @@ ApplicationItem {
                     anchors.centerIn: parent
                     text: eName
                     font.bold: true
+                    enabled: homeXButton.enabled
                 }
 
                 ColumnLayout {
                     id: extruderTopLayout
                     anchors.top: parent.top
                     anchors.left: parent.left
-                    height: parent.height / (numberModel.length*2+1) * numberModel.length
+                    height: root.buttonBaseHeight * numberModel.length
                     width: parent.width
                     spacing: 0
 
@@ -369,7 +394,7 @@ ApplicationItem {
                     id: extruderBottomLayout
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    height: parent.height / (numberModel.length*2+1) * numberModel.length
+                    height: root.buttonBaseHeight * numberModel.length
                     width: parent.width
                     spacing: 0
 
