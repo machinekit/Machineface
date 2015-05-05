@@ -1,14 +1,14 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
-import QtKnobs 1.0
+import Machinekit.Controls 1.0
 import Machinekit.Application.Controls 1.0
 
 Knob {
     property string axisName: ""
 
     id: root
-    style: Knob.Pie
-    pieType: Knob.Flat
+    style: "Pie"
+    pieType: "Flat"
     suffix: ""
     textColor: systemPalette.text
     foregroundColor: Qt.lighter(root.color, 1.2)

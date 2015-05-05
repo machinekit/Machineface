@@ -8,7 +8,6 @@ import Machinekit.Application.Controls 1.0
 import Machinekit.Service 1.0
 import Machinekit.HalRemote 1.0
 import Machinekit.HalRemote.Controls 1.0
-import QtKnobs 1.0
 
 ApplicationItem {
     property var numberModel: numberModelBase.concat(["∞"])
