@@ -30,7 +30,7 @@ ColumnLayout {
         id: halRemoteComponent
         halrcmdUri: halrcmdService.uri
         halrcompUri: halrcompService.uri
-        ready: (halrcmdService.ready && halrcompService.ready) || (state === HalRemoteComponent.Connected)
+        ready: (halrcmdService.ready && halrcompService.ready) || connected
         name: root.componentName
         containerItem: container
         create: false
