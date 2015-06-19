@@ -6,10 +6,16 @@ import Machinekit.Application.Controls 1.0
 
 Tab {
     title: qsTr("Settings")
+    active: true
     Item {
         ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: Screen.pixelDensity * 1
+            id: column1
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            anchors.top: parent.top
+            anchors.margins: Screen.pixelDensity
+            width: parent.width / 2
+            spacing: Screen.pixelDensity
 
             ToggleSettingCheck {
                 groupName: "dro"
@@ -98,8 +104,49 @@ Tab {
             }
         }
 
+        ColumnLayout {
+            id: column2
+            anchors.left: column1.right
+            anchors.bottom: parent.bottom
+            anchors.top: parent.top
+            anchors.margins: Screen.pixelDensity
+            anchors.right: parent.right
+            spacing: Screen.pixelDensity
 
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: false
 
+                Label {
+                    text: qsTr("Feed Override")
+                }
 
+                Item {
+                    Layout.fillWidth: true
+                }
+
+                Label {
+                    text: (feedrateSlider.value * 100).toFixed(0) + "%"
+                }
+            }
+
+            FeedrateSlider {
+                id: feedrateSlider
+                Layout.fillWidth: true
+                Layout.fillHeight: false
+            }
+
+            VelocityExtrusionControl {
+                id: velocityExtrusionControl
+            }
+
+            GantryConfigControl {
+                id: gantryConfigControl
+            }
+
+            Item {
+                Layout.fillHeight: true
+            }
+        }
     }
 }

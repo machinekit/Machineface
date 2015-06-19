@@ -77,8 +77,8 @@ ServiceWindow {
         GCodeTab { }
         PreviewTab { }
         VideoTab { }
-        ExtrasTab { }
         SettingsTab { }
+        ExtrasTab { }
     }
 
     DisplayPanel {
