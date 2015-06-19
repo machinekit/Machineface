@@ -338,8 +338,8 @@ ApplicationItem {
 
                 HalPin {
                     id: jogContinousPin
-                    name: "continous"
-                    direction: HalPin.Out
+                    name: "continuous"
+                    direction: HalPin.IO
                     type: HalPin.Bit
                 }
 
@@ -355,6 +355,20 @@ ApplicationItem {
                     name: "max-velocity"
                     direction: HalPin.In
                     type: HalPin.Float
+                }
+
+                HalPin {
+                    id: jogExtruderCountPin
+                    name: "extruder-count"
+                    direction: HalPin.In
+                    type: HalPin.U32
+                }
+
+                HalPin {
+                    id: jogExtruderSelPin
+                    name: "extruder-sel"
+                    direction: HalPin.In
+                    type: HalPin.S32
                 }
 
                 Label {
@@ -380,7 +394,8 @@ ApplicationItem {
                             Layout.alignment: Qt.AlignHCenter
                             distance: numberModelReverse[index] === "∞" ? 0 : numberModelReverse[index]
                             direction: true
-                            enabled: homeXButton.enabled
+                            enabled: homeXButton.enabled && !jogTriggerPin.value
+                                     && (!jogContinousPin.value || (distance == 0 && jogDirectionPin.value))
                             text: "-" + numberModelReverse[index]
                             style: CustomStyle {
                                 baseColor: axisColors[extruderControl.axisIndex];
@@ -405,7 +420,8 @@ ApplicationItem {
                             Layout.alignment: Qt.AlignHCenter
                             distance: numberModel[index] === "∞" ? 0 : numberModel[index]
                             direction: false
-                            enabled: homeXButton.enabled
+                            enabled: homeXButton.enabled && !jogTriggerPin.value
+                                     && (!jogContinousPin.value || (distance == 0 && !jogDirectionPin.value))
                             text: numberModel[index]
                             style: CustomStyle {
                                 baseColor: axisColors[extruderControl.axisIndex];
@@ -421,7 +437,7 @@ ApplicationItem {
         RowLayout {
             spacing: Screen.pixelDensity * 3
             Label {
-                text: qsTr("Velocity" ) //+ xVelocityKnob.units)
+                text: qsTr("Velocity" )
                 font.bold: true
             }
 
@@ -454,8 +470,39 @@ ApplicationItem {
             Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+
+                RowLayout {
+                    anchors.fill: parent
+                    spacing: Screen.pixelDensity * 1
+                    visible: eVisible && (jogExtruderCountPin.value > 1)
+
+                    Repeater {
+                        model: jogExtruderCountPin.value
+
+                        Button {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            text: index
+                            style: CustomStyle { baseColor: axisColors[extruderControl.axisIndex] }
+                            enabled: toolSelectAction.enabled
+                            checked: jogExtruderSelPin.value === index
+
+                            onClicked: toolSelectAction.trigger()
+
+                            MdiCommandAction {
+                                id: toolSelectAction
+                                mdiCommand: "T" + index
+                                enableHistory: false
+                            }
+                        }
+                    }
+                }
+            }
+
+            Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
             }
         }
     }
-
 }
