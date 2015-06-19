@@ -50,6 +50,7 @@ ColumnLayout {
             }
 
             HalSpinBox {
+                Layout.fillWidth: true
                 name: "offset-left"
                 suffix: "mm"
                 minimumValue: 0.0
@@ -64,6 +65,7 @@ ColumnLayout {
             }
 
             HalSpinBox {
+                Layout.fillWidth: true
                 name: "offset-right"
                 suffix: "mm"
                 minimumValue: 0.0

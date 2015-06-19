@@ -50,6 +50,7 @@ ColumnLayout {
             }
 
             HalSpinBox {
+                Layout.fillWidth: true
                 name: "filament-dia"
                 suffix: "mm"
                 minimumValue: 0.0
@@ -64,6 +65,7 @@ ColumnLayout {
             }
 
             HalSpinBox {
+                Layout.fillWidth: true
                 name: "retract-vel"
                 suffix: "mm/s"
                 minimumValue: 0.0
@@ -78,6 +80,7 @@ ColumnLayout {
             }
 
             HalSpinBox {
+                Layout.fillWidth: true
                 name: "retract-len"
                 suffix: "mm"
                 minimumValue: 0.0
@@ -92,6 +95,7 @@ ColumnLayout {
             }
 
             HalSpinBox {
+                Layout.fillWidth: true
                 name: "extrude-scale"
                 minimumValue: 0.0
                 maximumValue: 10.0
@@ -105,6 +109,7 @@ ColumnLayout {
             }
 
             HalSpinBox {
+                Layout.fillWidth: true
                 name: "accel-adj-gain"
                 minimumValue: 0.0
                 maximumValue: 10.0
