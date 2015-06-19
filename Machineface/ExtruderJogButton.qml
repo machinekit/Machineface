@@ -11,7 +11,7 @@ Button {
         if (distance !== 0) {
             jogDistancePin.value = distance
             jogDirectionPin.value = direction
-            jogTriggerPin.value = !jogTriggerPin.value
+            jogTriggerPin.value = true
         }
     }
     onPressedChanged: {
