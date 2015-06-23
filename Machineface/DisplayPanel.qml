@@ -20,6 +20,12 @@ ColumnLayout {
         logHeight: parent.height * 0.25
     }
 
+    TemperatureControl {
+        componentName: "fdm-hbc"
+        labelName: "Heated Chamber"
+        logHeight: parent.height * 0.25
+    }
+
     Repeater {
         model: 10
         TemperatureControl {
