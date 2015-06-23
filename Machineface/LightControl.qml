@@ -13,8 +13,10 @@ ColumnLayout {
     id: root
     property string componentName: "fdm-l0"
     property string labelName: "Light"
+    property bool wasConnected: false
 
-    visible: halRemoteComponent.ready && !halRemoteComponent.error
+    visible: halRemoteComponent.connected
+             || (wasConnected && halRemoteComponent.ready)
 
     Service {
         id: halrcompService
@@ -35,6 +37,7 @@ ColumnLayout {
         containerItem: container
         create: false
         onErrorStringChanged: console.log(errorString)
+        onConnectedChanged:  root.wasConnected = true
     }
 
     ColumnLayout {
