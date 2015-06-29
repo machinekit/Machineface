@@ -183,7 +183,8 @@ ColumnLayout {
                     }
                     else {
                         tempSetSpin.value = 0
-                    }                }
+                    }
+                }
 
                 Binding {
                     target: onOffSwitch
