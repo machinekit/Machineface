@@ -19,7 +19,8 @@ ApplicationItem {
     }
     property var axisColors: ["#F5A9A9", "#A9F5F2", "#81F781", "#D2B48C"]
     property color allColor: "#DDD"
-    property color specialColor: "#FFFF88"
+    property color specialColor: "#BBBBBB"
+    property color specialColor2: "#FFFF88"
     property var axisNames: ["X", "Y", "Z", "A"]
     property string eName: "E"
     property string eUnits: "mm/s"
@@ -75,6 +76,7 @@ ApplicationItem {
                     text: axisNames[0] + axisNames[1]
                     style: CustomStyle { baseColor: root.specialColor; radius: 1000; boldFont: true }
                     enabled: xyZeroAction.enabled
+                    tooltip: qsTr("Move to X0 Y0")
 
                     onClicked: xyZeroAction.trigger()
 
@@ -237,8 +239,9 @@ ApplicationItem {
                             height: root.buttonBaseHeight * 0.95
                             width: height
                             text: axisNames[2+index]
-                            style: CustomStyle { baseColor: root.specialColor; radius: 1000; boldFont: true }
+                            style: CustomStyle { baseColor: root.specialColor2; radius: 1000; boldFont: true }
                             enabled: zZeroAction.enabled
+                            tooltip: qsTr("Set current Z position to 0")
 
                             onClicked: zZeroAction.trigger()
 
@@ -296,6 +299,7 @@ ApplicationItem {
                 }
 
               }
+
             Item {
                 property int axisIndex: status.synced ? status.config.axes : 0
                 property double extruderVelocity: 5.0
@@ -431,11 +435,11 @@ ApplicationItem {
                     }
                 }
             }
-
         }
 
         RowLayout {
             spacing: Screen.pixelDensity * 3
+
             Label {
                 text: qsTr("Velocity" )
                 font.bold: true
@@ -497,11 +501,6 @@ ApplicationItem {
                         }
                     }
                 }
-            }
-
-            Item {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
             }
         }
     }
