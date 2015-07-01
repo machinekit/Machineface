@@ -10,7 +10,9 @@ import Machinekit.Service 1.0
 ColumnLayout {
     id: root
     property string labelName: "Velocity Extrusion"
-    visible: halRemoteComponent.ready && !halRemoteComponent.error
+    property bool wasConnected: false
+
+    visible: halRemoteComponent.ready || wasConnected
 
     Service {
         id: halrcompService
@@ -31,6 +33,7 @@ ColumnLayout {
         containerItem: container
         create: false
         onErrorStringChanged: console.log(errorString)
+        onConnectedChanged: root.wasConnected = true
     }
 
     ColumnLayout {

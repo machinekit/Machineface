@@ -15,8 +15,7 @@ ColumnLayout {
     property string labelName: "Light"
     property bool wasConnected: false
 
-    visible: halRemoteComponent.connected
-             || (wasConnected && halRemoteComponent.ready)
+    visible: halRemoteComponent.connected || wasConnected
 
     Service {
         id: halrcompService

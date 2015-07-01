@@ -26,7 +26,9 @@ ApplicationItem {
     property string eUnits: "mm/s"
     property bool zVisible: status.synced ? status.config.axes > 2 : true
     property bool aVisible: status.synced ? status.config.axes > 3 : true
-    property bool eVisible: halRemoteComponent.connected
+    property bool eVisible: halRemoteComponent.connected || eWasConnected
+    property bool eWasConnected: false
+    property bool eEnabled: halRemoteComponent.connected
     property int buttonBaseHeight: container.height / (numberModel.length*2+1)
 
     id: root
@@ -50,6 +52,7 @@ ApplicationItem {
         containerItem: extruderControl
         create: false
         onErrorStringChanged: console.log(errorString)
+        onConnectedChanged: root.eWasConnected = true
     }
 
     ColumnLayout {
@@ -311,6 +314,7 @@ ApplicationItem {
                 anchors.leftMargin: parent.height * 0.03
                 width: parent.height * 0.20
                 visible: eVisible
+                enabled: eEnabled
 
                 HalPin {
                     id: jogVelocityPin
@@ -462,6 +466,7 @@ ApplicationItem {
                 Layout.fillHeight: true
                 Layout.preferredWidth: height
                 visible: eVisible
+                enabled: eEnabled
                 minimumValue: 1
                 maximumValue: jogMaxVelocityPin.value
                 color: axisColors[extruderControl.axisIndex]
@@ -479,6 +484,7 @@ ApplicationItem {
                     anchors.fill: parent
                     spacing: Screen.pixelDensity * 1
                     visible: eVisible && (jogExtruderCountPin.value > 1)
+                    enabled: eEnabled
 
                     Repeater {
                         model: jogExtruderCountPin.value
