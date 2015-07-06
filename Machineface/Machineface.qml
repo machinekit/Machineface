@@ -75,10 +75,10 @@ ServiceWindow {
         JogControlTab { }
         MdiTab { }
         GCodeTab { }
-        PreviewTab { }
+        /*PreviewTab { }*/
         VideoTab { }
         SettingsTab { }
-        ExtrasTab { }
+        /*ExtrasTab { }*/
     }
 
     DisplayPanel {
