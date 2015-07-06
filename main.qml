@@ -30,8 +30,8 @@ ApplicationWindow {
 
     visibility: (Qt.platform.os == "android") ? "FullScreen" : "AutomaticVisibility"
     visible: true
-    width: 800
-    height: 450
+    width: 1000
+    height: 600
     title: connectionWindow.title
     toolBar: connectionWindow.toolBar
     statusBar: connectionWindow.statusBar
@@ -43,7 +43,8 @@ ApplicationWindow {
         anchors.fill: parent
         defaultTitle: "Machineface"
         autoSelectInstance: false
-        autoSelectApplication: true
+        autoSelectApplication: false
+        localVisible: true
         remoteVisible: false
         lookupMode: ServiceDiscovery.MulticastDNS
         applications: [
