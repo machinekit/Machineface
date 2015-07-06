@@ -63,6 +63,7 @@ ApplicationItem {
         Item {
             id: container
             Layout.fillWidth: true
+            Layout.fillHeight: true
             Layout.preferredHeight: Math.min(width / 1.6, parent.height)
 
             Item {
@@ -443,6 +444,9 @@ ApplicationItem {
 
         RowLayout {
             spacing: Screen.pixelDensity * 3
+            Layout.fillHeight: false
+            Layout.fillWidth: true
+            Layout.preferredHeight: Screen.pixelDensity * 19
 
             Label {
                 text: qsTr("Velocity" )
