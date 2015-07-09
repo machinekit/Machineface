@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtQuick.Window 2.0
+import QtQml 2.2
 import Machinekit.Application 1.0
 import Machinekit.Application.Controls 1.0
 import Machinekit.Service 1.0
@@ -380,11 +381,47 @@ ApplicationItem {
                     type: HalPin.S32
                 }
 
-                Label {
+                Button {
                     anchors.centerIn: parent
-                    text: eName
-                    font.bold: true
-                    enabled: homeXButton.enabled
+                    height: root.buttonBaseHeight * 0.95
+                    width: height
+                    text: eName + jogExtruderSelPin.value
+                    style: CustomStyle {
+                        baseColor: axisColors[extruderControl.axisIndex];
+                        radius: 1000
+                        boldFont: true
+                    }
+                    onClicked: toolSelectMenu.popup()
+                    enabled: toolSelectAction.enabled
+                    tooltip: qsTr("Change extruder")
+
+                    MdiCommandAction {
+                        property int index: 0
+
+                        id: toolSelectAction
+                        mdiCommand: "T" + index
+                        enableHistory: false
+                    }
+
+                    Menu {
+                        id: toolSelectMenu
+                        title: qsTr("Select extruder")
+
+                        Instantiator {
+                                model: jogExtruderCountPin.value
+                                MenuItem {
+                                    text: qsTr("Extruder ") + index
+                                    checkable: true
+                                    checked: jogExtruderSelPin.value === index
+                                    onTriggered: {
+                                        toolSelectAction.index = index
+                                        toolSelectAction.trigger()
+                                    }
+                                }
+                                onObjectAdded: toolSelectMenu.insertItem(index, object)
+                                onObjectRemoved: toolSelectMenu.removeItem(object)
+                            }
+                    }
                 }
 
                 ColumnLayout {
@@ -481,36 +518,7 @@ ApplicationItem {
             }
 
             Item {
-                Layout.fillHeight: true
                 Layout.fillWidth: true
-
-                RowLayout {
-                    anchors.fill: parent
-                    spacing: Screen.pixelDensity * 1
-                    visible: eVisible && (jogExtruderCountPin.value > 1)
-                    enabled: eEnabled
-
-                    Repeater {
-                        model: jogExtruderCountPin.value
-
-                        Button {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            text: index
-                            style: CustomStyle { baseColor: axisColors[extruderControl.axisIndex] }
-                            enabled: toolSelectAction.enabled
-                            checked: jogExtruderSelPin.value === index
-
-                            onClicked: toolSelectAction.trigger()
-
-                            MdiCommandAction {
-                                id: toolSelectAction
-                                mdiCommand: "T" + index
-                                enableHistory: false
-                            }
-                        }
-                    }
-                }
             }
         }
     }
