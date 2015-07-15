@@ -21,7 +21,6 @@ ApplicationItem {
     property var axisColors: ["#F5A9A9", "#A9F5F2", "#81F781", "#D2B48C"]
     property color allColor: "#DDD"
     property color specialColor: "#BBBBBB"
-    property color specialColor2: "#FFFF88"
     property var axisNames: ["X", "Y", "Z", "A"]
     property string eName: "E"
     property string eUnits: "mm/s"
@@ -81,7 +80,7 @@ ApplicationItem {
                     text: axisNames[0] + axisNames[1]
                     style: CustomStyle { baseColor: root.specialColor; radius: 1000; boldFont: true }
                     enabled: xyZeroAction.enabled
-                    tooltip: qsTr("Move to X0 Y0")
+                    tooltip: qsTr("Move ") + axisNames[0] + qsTr(" and ") + axisNames[1] + qsTr(" axis to 0")
 
                     onClicked: xyZeroAction.trigger()
 
@@ -244,16 +243,36 @@ ApplicationItem {
                             height: root.buttonBaseHeight * 0.95
                             width: height
                             text: axisNames[2+index]
-                            style: CustomStyle { baseColor: root.specialColor2; radius: 1000; boldFont: true }
+                            style: CustomStyle { baseColor: root.axisColors[2+index]; radius: 1000; boldFont: true }
                             enabled: zZeroAction.enabled
-                            tooltip: qsTr("Set current Z position to 0")
+                            tooltip: qsTr("Select axis action")
 
-                            onClicked: zZeroAction.trigger()
+                            onClicked: zActionMenu.popup()
 
                             MdiCommandAction {
                                 id: zZeroAction
-                                mdiCommand: "G10 L20 P0 " + axisNames[2+index] + "0"
                                 enableHistory: false
+                            }
+
+                            Menu {
+                                id: zActionMenu
+                                title: qsTr("Select Action")
+
+                                MenuItem {
+                                    text: qsTr("Touch off ") + axisNames[2+index] + qsTr(" axis")
+                                    onTriggered: {
+                                        zZeroAction.mdiCommand = "G10 L20 P0 " + axisNames[2+index] + "0"
+                                        zZeroAction.trigger()
+                                    }
+                                }
+
+                                MenuItem {
+                                    text: qsTr("Move ") + axisNames[2+index] + qsTr(" axis to 0")
+                                    onTriggered: {
+                                        zZeroAction.mdiCommand = "G0 " + axisNames[2+index] + "0"
+                                        zZeroAction.trigger()
+                                    }
+                                }
                             }
                         }
 
