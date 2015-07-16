@@ -37,14 +37,16 @@ Tab {
                 text: qsTr("Show distance to go")
             }
 
+            // temporarily disable preview until it is working in a better way
             ToggleSettingCheck {
                 id: enablePreviewAction
                 groupName: "preview"
                 valueName: "enable"
                 text: qsTr("Enable preview")
+                visible: checked  // in case preview was accidentally enabled show this check box
             }
 
-            ToggleSettingCheck {
+           /* ToggleSettingCheck {
                 id: showMachineLimitsAction
                 groupName: "preview"
                 valueName: "showMachineLimits"
@@ -98,7 +100,7 @@ Tab {
                 groupName: "preview"
                 valueName: "showCoordinate"
                 text: qsTr("Show coordinate")
-            }
+            }*/
             Item {
                 Layout.fillHeight: true
             }
