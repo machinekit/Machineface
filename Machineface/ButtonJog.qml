@@ -18,10 +18,10 @@ ApplicationItem {
         tmp.reverse()
         return tmp
     }
-    property var axisColors: ["#F5A9A9", "#A9F5F2", "#81F781", "#D2B48C"]
+    property var axisColors: ["#F5A9A9", "#A9F5F2", "#81F781", "#D2B48C", "#D28ED0", "#CFCC67"]
     property color allColor: "#DDD"
     property color specialColor: "#BBBBBB"
-    property var axisNames: ["X", "Y", "Z", "A"]
+    property var axisNames: ["X", "Y", "Z", "A", "B", "C", "U", "V", "W"] // should come from INI/config
     property string eName: "E"
     property string eUnits: "mm/s"
     property bool zVisible: status.synced ? status.config.axes > 2 : true
