@@ -11,13 +11,8 @@ import Machinekit.HalRemote 1.0
 import Machinekit.HalRemote.Controls 1.0
 
 ApplicationItem {
-    property var numberModel: numberModelBase.concat(["∞"])
-    property var numberModelBase: status.synced ? status.config.increments.split(" ") : []
-    property var numberModelReverse: {
-        var tmp = numberModel.slice()
-        tmp.reverse()
-        return tmp
-    }
+    property var numberModel: defaultHandler.incrementsModel //numberModelBase.concat(["∞"])
+    property var numberModelReverse: defaultHandler.incrementsModelReverse
     property var axisColors: ["#F5A9A9", "#A9F5F2", "#81F781", "#D2B48C", "#D28ED0", "#CFCC67"]
     property color allColor: "#DDD"
     property color specialColor: "#BBBBBB"
@@ -55,6 +50,13 @@ ApplicationItem {
         onConnectedChanged: root.eWasConnected = true
     }
 
+    JogDistanceHandler {
+        id: defaultHandler
+        continousText: "∞"
+        core: root.core
+        axis: -1
+    }
+
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Screen.pixelDensity
@@ -73,9 +75,18 @@ ApplicationItem {
                 anchors.bottom: parent.bottom
                 width: height
 
+                JogDistanceHandler {
+                    property int buttonBaseSize: container.height / (incrementsModel.length*2+1)
+
+                    id: xyHandler
+                    continousText: "∞"
+                    core: root.core
+                    axis: 0
+                }
+
                 Button {
                     anchors.centerIn: parent
-                    height: root.buttonBaseHeight * 0.95
+                    height: xyHandler.buttonBaseSize * 0.95
                     width: height
                     text: axisNames[0] + axisNames[1]
                     style: CustomStyle { baseColor: root.specialColor; radius: 1000; boldFont: true }
@@ -136,17 +147,18 @@ ApplicationItem {
                     id: xAxisRightLayout
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    width: root.buttonBaseHeight * numberModel.length
+                    width: xyHandler.buttonBaseSize * xyHandler.incrementsModel.length
                     height: width
                     spacing: 0
+
                     Repeater {
-                        model: numberModel
+                        model: xyHandler.incrementsModel
                         JogButton {
                             Layout.fillWidth: true
-                            Layout.preferredHeight: xAxisRightLayout.height / numberModel.length * (index+1)
-                            text: numberModel[index]
+                            Layout.preferredHeight: xAxisRightLayout.height / xyHandler.incrementsModel.length * (index+1)
+                            text: xyHandler.incrementsModel[index]
                             axis: 0
-                            distance: numberModel[index] === "∞" ? 0 : numberModel[index]
+                            distance: xyHandler.incrementsModel[index] === "∞" ? 0 : xyHandler.incrementsModel[index]
                             direction: 1
                             style: CustomStyle { baseColor: axisColors[0]; darkness: index*0.06 }
                         }
@@ -157,17 +169,17 @@ ApplicationItem {
                     id: xAxisLeftLayout
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
-                    width: root.buttonBaseHeight * numberModel.length
+                    width: xyHandler.buttonBaseSize * xyHandler.incrementsModelReverse.length
                     height: width
                     spacing: 0
                     Repeater {
-                        model: numberModelReverse
+                        model: xyHandler.incrementsModelReverse
                         JogButton {
                             Layout.fillWidth: true
-                            Layout.preferredHeight: xAxisLeftLayout.width / numberModel.length * (numberModel.length-index)
-                            text: "-" + numberModelReverse[index]
+                            Layout.preferredHeight: xAxisLeftLayout.width / xyHandler.incrementsModelReverse.length * (xyHandler.incrementsModelReverse.length-index)
+                            text: "-" + xyHandler.incrementsModelReverse[index]
                             axis: 0
-                            distance: numberModelReverse[index] === "∞" ? 0 : numberModelReverse[index]
+                            distance: xyHandler.incrementsModelReverse[index] === "∞" ? 0 : xyHandler.incrementsModelReverse[index]
                             direction: -1
                             style: CustomStyle { baseColor: axisColors[0]; darkness: (numberModel.length-index-1)*0.06 }
                         }
@@ -178,20 +190,20 @@ ApplicationItem {
                     id: yAxisTopLayout
                     anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
-                    height: root.buttonBaseHeight * numberModel.length
-                    width: height
+                    width: xyHandler.buttonBaseSize * xyHandler.incrementsModelReverse.length
+                    height: width
                     spacing: 0
                     Repeater {
-                        model: numberModelReverse
+                        model: xyHandler.incrementsModelReverse
                         JogButton {
-                            Layout.preferredWidth: yAxisTopLayout.width / numberModel.length * (numberModel.length-index)
+                            Layout.preferredWidth: yAxisTopLayout.width / xyHandler.incrementsModelReverse.length * (xyHandler.incrementsModelReverse.length-index)
                             Layout.fillHeight: true
                             Layout.alignment: Qt.AlignHCenter
-                            text: numberModelReverse[index]
+                            text: xyHandler.incrementsModelReverse[index]
                             axis: 1
-                            distance: numberModelReverse[index] === "∞" ? 0 : numberModelReverse[index]
+                            distance: xyHandler.incrementsModelReverse[index] === "∞" ? 0 : xyHandler.incrementsModelReverse[index]
                             direction: 1
-                            style: CustomStyle { baseColor: axisColors[1]; darkness: (numberModel.length-index-1)*0.06 }
+                            style: CustomStyle { baseColor: axisColors[1]; darkness: (xyHandler.incrementsModelReverse.length-index-1)*0.06 }
                         }
                     }
                 }
@@ -200,18 +212,18 @@ ApplicationItem {
                     id: yAxisBottomLayout
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    height: root.buttonBaseHeight * numberModel.length
+                    height: xyHandler.buttonBaseSize * xyHandler.incrementsModel.length
                     width: height
                     spacing: 0
                     Repeater {
-                        model: numberModel
+                        model: xyHandler.incrementsModel
                         JogButton {
-                            Layout.preferredWidth: yAxisBottomLayout.width / numberModel.length * (index+1)
+                            Layout.preferredWidth: yAxisBottomLayout.width / xyHandler.incrementsModel.length * (index+1)
                             Layout.fillHeight: true
                             Layout.alignment: Qt.AlignHCenter
-                            text: "-" + numberModel[index]
+                            text: "-" + xyHandler.incrementsModel[index]
                             axis: 1
-                            distance: numberModel[index] === "∞" ? 0 : numberModel[index]
+                            distance: xyHandler.incrementsModel[index] === "∞" ? 0 : xyHandler.incrementsModel[index]
                             direction: -1
                             style: CustomStyle { baseColor: axisColors[1]; darkness: index*0.06 }
                         }
@@ -220,7 +232,7 @@ ApplicationItem {
             }
 
             RowLayout {
-                property int axes: status.synced ? status.config.axes - 2 : 2
+                property int axes: status.synced ? status.config.axes - 2 : 1
 
                 id: axisRowLayout
                 anchors.left: mainItem.right
@@ -238,9 +250,18 @@ ApplicationItem {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
 
+                        JogDistanceHandler {
+                            property int buttonBaseHeight: container.height / (incrementsModel.length*2+1)
+
+                            id: axisHandler
+                            continousText: "∞"
+                            core: root.core
+                            axis: axisIndex+2
+                        }
+
                         Button {
                             anchors.centerIn: parent
-                            height: root.buttonBaseHeight * 0.95
+                            height: axisHandler.buttonBaseHeight * 0.95
                             width: height
                             text: axisNames[2+index]
                             style: CustomStyle { baseColor: root.axisColors[2+index]; radius: 1000; boldFont: true }
@@ -280,20 +301,20 @@ ApplicationItem {
                             id: axisTopLayout
                             anchors.top: parent.top
                             anchors.left: parent.left
-                            height: root.buttonBaseHeight * numberModel.length
+                            height: axisHandler.buttonBaseHeight * axisHandler.incrementsModelReverse.length
                             width: parent.width
                             spacing: 0
                             Repeater {
-                                model: numberModelReverse
+                                model: axisHandler.incrementsModelReverse
                                 JogButton {
-                                    Layout.preferredWidth: axisTopLayout.height / numberModel.length * ((numberModel.length - index - 1) * 0.2 + 1)
+                                    Layout.preferredWidth: axisTopLayout.height / axisHandler.incrementsModelReverse.length * ((axisHandler.incrementsModelReverse.length - index - 1) * 0.2 + 1)
                                     Layout.fillHeight: true
                                     Layout.alignment: Qt.AlignHCenter
-                                    text: numberModelReverse[index]
+                                    text: axisHandler.incrementsModelReverse[index]
                                     axis: 2 + axisIndex
-                                    distance: numberModelReverse[index] === "∞" ? 0 : numberModelReverse[index]
+                                    distance: axisHandler.incrementsModelReverse[index] === "∞" ? 0 : axisHandler.incrementsModelReverse[index]
                                     direction: 1
-                                    style: CustomStyle { baseColor: axisColors[2+axisIndex]; darkness: (numberModel.length-index-1)*0.06 }
+                                    style: CustomStyle { baseColor: axisColors[axisIndex+2]; darkness: (axisHandler.incrementsModelReverse.length-index-1)*0.06 }
                                 }
                             }
                         }
@@ -302,20 +323,20 @@ ApplicationItem {
                             id: axisBottomLayout
                             anchors.bottom: parent.bottom
                             anchors.horizontalCenter: parent.horizontalCenter
-                            height: root.buttonBaseHeight * numberModel.length
+                            height: axisHandler.buttonBaseHeight * axisHandler.incrementsModel.length
                             width: parent.width
                             spacing: 0
                             Repeater {
-                                model: numberModel
+                                model: axisHandler.incrementsModel
                                 JogButton {
-                                    Layout.preferredWidth: axisBottomLayout.height / numberModel.length * (index*0.2+1)
+                                    Layout.preferredWidth: axisBottomLayout.height / axisHandler.incrementsModel.length * (index*0.2+1)
                                     Layout.fillHeight: true
                                     Layout.alignment: Qt.AlignHCenter
-                                    text: "-" + numberModel[index]
-                                    axis: 2 + axisIndex
-                                    distance: numberModel[index] === "∞" ? 0 : numberModel[index]
+                                    text: "-" + axisHandler.incrementsModel[index]
+                                    axis: axisIndex + 2
+                                    distance: axisHandler.incrementsModel[index] === "∞" ? 0 : axisHandler.incrementsModel[index]
                                     direction: -1
-                                    style: CustomStyle { baseColor: axisColors[2+axisIndex]; darkness: index*0.06 }
+                                    style: CustomStyle { baseColor: axisColors[axisIndex+2]; darkness: index*0.06 }
                                 }
                             }
                         }
