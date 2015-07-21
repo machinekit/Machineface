@@ -23,6 +23,7 @@ Menu {
     }
 
     MenuItem {
+        text: qsTr("Sh&utdown")
         action: ShutdownAction {}
         onTriggered: {
             window.disconnect()
