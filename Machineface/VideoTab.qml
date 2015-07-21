@@ -28,20 +28,20 @@ Tab {
             Label {
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
-                anchors.margins: Screen.logicalPixelDensity
+                anchors.margins: Screen.pixelDensity
                 text: parent.fps
             }
 
             Label {
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
-                anchors.margins: Screen.logicalPixelDensity
+                anchors.margins: Screen.pixelDensity
                 text: parent.time.toTimeString()
             }
 
             Image {
                 anchors.centerIn: parent
-                width: Screen.logicalPixelDensity * 30
+                width: Screen.pixelDensity * 30
                 height: width
                 visible: !parent.videoEnabled
                 source: "icons/ic_play_arrow_white_48dp.png"
