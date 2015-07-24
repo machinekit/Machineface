@@ -58,8 +58,15 @@ ServiceWindow {
         width: parent.height * 0.1
     }
 
-    ApplicationFileDialog {
+    ApplicationRemoteFileDialog {
         id: applicationFileDialog
+        width: window.width
+        height: window.height
+        fileDialog: fileDialog
+    }
+
+    ApplicationFileDialog {
+        id: fileDialog
     }
 
     TabView {
