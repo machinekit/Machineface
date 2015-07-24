@@ -1,0 +1,9 @@
+* Material Design icons by Google
+Contains the Material Design icon font by Google. Visit
+https://github.com/google/material-design-icons and
+http://google.github.io/material-design-icons/ for more information.
+
+** License
+These icons are licensed by under the [[http://creativecommons.org/licenses/by/4.0/][Creative Common Attribution 4.0
+International License (CC-BY 4.0)]]. Thanks to Google and the designers
+of this beautiful icon set.
