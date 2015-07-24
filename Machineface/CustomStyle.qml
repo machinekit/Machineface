@@ -34,14 +34,6 @@ ButtonStyle {
     }
     label: Item {
         opacity: control.enabled ? 1.0 : 0.4
-        Image {
-            anchors.centerIn: parent
-            width: parent.width * 0.6
-            height: width
-            source: control.iconSource
-            smooth: true
-            sourceSize: Qt.size(width, height)
-        }
         Label {
             anchors.fill: parent
             anchors.margins: control.iconSource == "" ? 0 : parent.width * 0.06

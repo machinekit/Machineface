@@ -39,12 +39,13 @@ Tab {
                 text: parent.time.toTimeString()
             }
 
-            Image {
+            FontIcon {
                 anchors.centerIn: parent
                 width: Screen.pixelDensity * 30
                 height: width
                 visible: !parent.videoEnabled
-                source: "icons/ic_play_arrow_white_48dp.png"
+                color: "white"
+                text: "\ue037"
             }
 
             MouseArea {

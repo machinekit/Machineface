@@ -13,21 +13,9 @@
         <file>Machineface/MdiTab.qml</file>
         <file>Machineface/GCodeTab.qml</file>
         <file>Machineface/SettingsTab.qml</file>
-        <file>Machineface/icons/ic_cancel_white_48dp.png</file>
-        <file>Machineface/icons/ic_report_white_48dp.png</file>
-        <file>Machineface/icons/ic_settings_power_white_48dp.png</file>
-        <file>Machineface/icons/ic_folder_open_white_48dp.png</file>
-        <file>Machineface/icons/ic_refresh_white_48dp.png</file>
-        <file>Machineface/icons/ic_play_arrow_white_48dp.png</file>
-        <file>Machineface/icons/ic_skip_next_white_48dp.png</file>
-        <file>Machineface/icons/ic_stop_white_48dp.png</file>
-        <file>Machineface/icons/ic_pause_white_48dp.png</file>
         <file>Machineface/ToggleSettingCheck.qml</file>
         <file>Machineface/OverlayDialog.qml</file>
-        <file>Machineface/icons/material-icon-font.ttf</file>
-        <file>Machineface/icons/ic_info_outline_white_48dp.png</file>
         <file>Machineface/AboutDialog.qml</file>
-        <file>Machineface/icons/ic_home_black_48dp.png</file>
         <file>Machineface/TemperatureControl.qml</file>
         <file>Machineface/FanControl.qml</file>
         <file>Machineface/LightControl.qml</file>
@@ -35,11 +23,11 @@
         <file>Machineface/GantryConfigControl.qml</file>
         <file>Machineface/VideoTab.qml</file>
         <file>Machineface/ApplicationMenu.qml</file>
-        <file>Machineface/icons/ic_more_horiz_white_48dp.png</file>
         <file>Machineface/ExtruderJogButton.qml</file>
-        <file>Machineface/icons/ic_home_grey600_48dp.png</file>
         <file>Machineface/HomeButton.qml</file>
         <file>Machineface/JogVelocityKnob.qml</file>
         <file>Machineface/JogKnob.qml</file>
+        <file>Machineface/FontIcon.qml</file>
+        <file>Machineface/icons/MaterialIcons-Regular.ttf</file>
     </qresource>
 </RCC>

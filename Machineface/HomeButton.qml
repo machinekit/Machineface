@@ -18,6 +18,10 @@ Button {
         textColor: !homeAction.homed ? systemPalette.text : "gray"
         boldFont: true
     }
-    iconSource: !homeAction.homed ? "icons/ic_home_black_48dp.png" : "icons/ic_home_grey600_48dp.png"
+    iconSource: " "
+    FontIcon { // home
+        font.pixelSize: parent.width * 0.5
+        text: "\ue88a"; color: !homeAction.homed ? systemPalette.text : "gray"
+    }
 }
 
