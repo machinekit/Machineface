@@ -110,7 +110,7 @@ ServiceWindow {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: parent.top
-        anchors.margins: Screen.pixelDensity * 3
+        anchors.margins: Screen.pixelDensity
         messageWidth: parent.width * 0.25
     }
 }
