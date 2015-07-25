@@ -7,15 +7,57 @@ import Machinekit.Application.Controls 1.0
 Tab {
     title: qsTr("Settings")
     active: true
+
     Item {
+    ScrollView {
+        id: scrollView
+        anchors.fill: parent
+        anchors.margins: Screen.pixelDensity
+        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+        contentItem:
+
         ColumnLayout {
             id: column1
-            anchors.left: parent.left
-            anchors.bottom: parent.bottom
-            anchors.top: parent.top
-            anchors.margins: Screen.pixelDensity
-            width: parent.width / 2
+            width: scrollView.width
             spacing: Screen.pixelDensity
+
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: false
+
+                Label {
+                    text: qsTr("Feed Override")
+                    font.bold: true
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                }
+
+                Label {
+                    text: (feedrateSlider.value * 100).toFixed(0) + "%"
+                }
+            }
+
+            FeedrateSlider {
+                id: feedrateSlider
+                Layout.fillWidth: true
+            }
+
+            VelocityExtrusionControl {
+                Layout.fillWidth: false
+                id: velocityExtrusionControl
+            }
+
+            GantryConfigControl {
+                Layout.fillWidth: false
+                id: gantryConfigControl
+            }
+
+            Label {
+                text: qsTr("Digital Read Out")
+                font.bold: true
+            }
 
             ToggleSettingCheck {
                 groupName: "dro"
@@ -101,54 +143,7 @@ Tab {
                 valueName: "showCoordinate"
                 text: qsTr("Show coordinate")
             }*/
-            Item {
-                Layout.fillHeight: true
-            }
         }
-
-        ColumnLayout {
-            id: column2
-            anchors.left: column1.right
-            anchors.bottom: parent.bottom
-            anchors.top: parent.top
-            anchors.margins: Screen.pixelDensity
-            anchors.right: parent.right
-            spacing: Screen.pixelDensity
-
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.fillHeight: false
-
-                Label {
-                    text: qsTr("Feed Override")
-                }
-
-                Item {
-                    Layout.fillWidth: true
-                }
-
-                Label {
-                    text: (feedrateSlider.value * 100).toFixed(0) + "%"
-                }
-            }
-
-            FeedrateSlider {
-                id: feedrateSlider
-                Layout.fillWidth: true
-                Layout.fillHeight: false
-            }
-
-            VelocityExtrusionControl {
-                id: velocityExtrusionControl
-            }
-
-            GantryConfigControl {
-                id: gantryConfigControl
-            }
-
-            Item {
-                Layout.fillHeight: true
-            }
         }
     }
 }
