@@ -9,6 +9,10 @@ ButtonStyle {
     property color textColor: systemPalette.text
     property int radius: -1
     property bool boldFont: false
+    property int fontSize: 10
+    property string fontIcon: ""
+    property color fontIconColor: systemPalette.text
+    property int fontIconSize: Math.min(control.width, control.height) * 0.5
 
     id: root
 
@@ -22,7 +26,7 @@ ButtonStyle {
         implicitHeight: 25
         border.width: control.activeFocus ? 2 : 1
         border.color: Qt.darker(baseColor, 1.1+darkness)
-        radius: root.radius == -1 ? Screen.pixelDensity : root.radius
+        radius: root.radius == -1 ? Math.min(control.width, control.height) * 0.1 : root.radius
         gradient: Gradient {
             GradientStop { position: 0 ; color: (control.pressed || control.checked) ?
                                                     Qt.darker(baseColor, 1.05+darkness) :
@@ -35,6 +39,7 @@ ButtonStyle {
     label: Item {
         opacity: control.enabled ? 1.0 : 0.4
         Label {
+            id: label
             anchors.fill: parent
             anchors.margins: control.iconSource == "" ? 0 : parent.width * 0.06
             horizontalAlignment: control.iconSource == "" ? "AlignHCenter" : "AlignRight"
@@ -42,6 +47,13 @@ ButtonStyle {
             text: control.text
             color: root.textColor
             font.bold: root.boldFont
+            font.pixelSize: root.fontSize
+        }
+
+        FontIcon {
+            font.pixelSize: root.fontIconSize
+            text: root.fontIcon; color: root.fontIconColor
+            visible: root.fontIcon != ""
         }
     }
 }

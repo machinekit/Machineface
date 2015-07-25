@@ -11,7 +11,7 @@ import Machinekit.HalRemote 1.0
 import Machinekit.HalRemote.Controls 1.0
 
 ApplicationItem {
-    property var numberModel: defaultHandler.incrementsModel //numberModelBase.concat(["∞"])
+    property var numberModel: defaultHandler.incrementsModel //numberModelBase.concat(["inf"])
     property var numberModelReverse: defaultHandler.incrementsModelReverse
     property var axisColors: ["#F5A9A9", "#A9F5F2", "#81F781", "#D2B48C", "#D28ED0", "#CFCC67"]
     property color allColor: "#DDD"
@@ -25,6 +25,9 @@ ApplicationItem {
     property bool eWasConnected: false
     property bool eEnabled: halRemoteComponent.connected
     property int buttonBaseHeight: container.height / (numberModel.length*2+1)
+
+    property int baseSize: Math.min(width, height)
+    property int fontSize: baseSize * 0.028
 
     id: root
 
@@ -52,7 +55,7 @@ ApplicationItem {
 
     JogDistanceHandler {
         id: defaultHandler
-        continousText: "∞"
+        continousText: "inf"
         core: root.core
         axis: -1
     }
@@ -79,7 +82,7 @@ ApplicationItem {
                     property int buttonBaseSize: container.height / (incrementsModel.length*2+1)
 
                     id: xyHandler
-                    continousText: "∞"
+                    continousText: "inf"
                     core: root.core
                     axis: 0
                 }
@@ -89,7 +92,7 @@ ApplicationItem {
                     height: xyHandler.buttonBaseSize * 0.95
                     width: height
                     text: axisNames[0] + axisNames[1]
-                    style: CustomStyle { baseColor: root.specialColor; radius: 1000; boldFont: true }
+                    style: CustomStyle { baseColor: root.specialColor; radius: 1000; boldFont: true; fontSize: root.fontSize }
                     enabled: xyZeroAction.enabled
                     tooltip: qsTr("Move ") + axisNames[0] + qsTr(" and ") + axisNames[1] + qsTr(" axis to 0")
 
@@ -111,6 +114,7 @@ ApplicationItem {
                     axis: 0
                     axisName: axisNames[0]
                     color: axisColors[0]
+                    fontSize: root.fontSize
                 }
 
                 HomeButton {
@@ -121,6 +125,7 @@ ApplicationItem {
                     axis: 1
                     axisName: axisNames[1]
                     color: axisColors[1]
+                    fontSize: root.fontSize
                 }
 
                 HomeButton {
@@ -131,6 +136,7 @@ ApplicationItem {
                     axis: 2
                     axisName: axisNames[2]
                     color: axisColors[2]
+                    fontSize: root.fontSize
                 }
 
                 HomeButton {
@@ -141,6 +147,7 @@ ApplicationItem {
                     axis: -1
                     axisName: "All"
                     color: "white"
+                    fontSize: root.fontSize
                 }
 
                 RowLayout {
@@ -154,13 +161,20 @@ ApplicationItem {
                     Repeater {
                         model: xyHandler.incrementsModel
                         JogButton {
+                            property string modelText: xyHandler.incrementsModel[index]
                             Layout.fillWidth: true
                             Layout.preferredHeight: xAxisRightLayout.height / xyHandler.incrementsModel.length * (index+1)
-                            text: xyHandler.incrementsModel[index]
+                            text: modelText === "inf" ? "" : modelText
                             axis: 0
-                            distance: xyHandler.incrementsModel[index] === "∞" ? 0 : xyHandler.incrementsModel[index]
+                            distance: modelText === "inf" ? 0 : modelText
                             direction: 1
-                            style: CustomStyle { baseColor: axisColors[0]; darkness: index*0.06 }
+                            style: CustomStyle {
+                                baseColor: axisColors[0]
+                                darkness: index*0.06
+                                fontSize: root.fontSize
+                                fontIcon: modelText == "inf" ? "\ue315" : ""
+                                fontIconSize: root.fontSize * 2.5
+                            }
                         }
                     }
                 }
@@ -175,13 +189,20 @@ ApplicationItem {
                     Repeater {
                         model: xyHandler.incrementsModelReverse
                         JogButton {
+                            property string modelText: xyHandler.incrementsModelReverse[index]
                             Layout.fillWidth: true
                             Layout.preferredHeight: xAxisLeftLayout.width / xyHandler.incrementsModelReverse.length * (xyHandler.incrementsModelReverse.length-index)
-                            text: "-" + xyHandler.incrementsModelReverse[index]
+                            text: modelText === "inf" ? "" : "-" + modelText
                             axis: 0
-                            distance: xyHandler.incrementsModelReverse[index] === "∞" ? 0 : xyHandler.incrementsModelReverse[index]
+                            distance: modelText === "inf" ? 0 : modelText
                             direction: -1
-                            style: CustomStyle { baseColor: axisColors[0]; darkness: (numberModel.length-index-1)*0.06 }
+                            style: CustomStyle {
+                                baseColor: axisColors[0]
+                                darkness: (numberModel.length-index-1)*0.06
+                                fontSize: root.fontSize
+                                fontIcon: modelText == "inf" ? "\ue314" : ""
+                                fontIconSize: root.fontSize * 2.5
+                            }
                         }
                     }
                 }
@@ -196,14 +217,21 @@ ApplicationItem {
                     Repeater {
                         model: xyHandler.incrementsModelReverse
                         JogButton {
+                            property string modelText: xyHandler.incrementsModelReverse[index]
                             Layout.preferredWidth: yAxisTopLayout.width / xyHandler.incrementsModelReverse.length * (xyHandler.incrementsModelReverse.length-index)
                             Layout.fillHeight: true
                             Layout.alignment: Qt.AlignHCenter
-                            text: xyHandler.incrementsModelReverse[index]
+                            text: modelText == "inf" ? "" : modelText
                             axis: 1
-                            distance: xyHandler.incrementsModelReverse[index] === "∞" ? 0 : xyHandler.incrementsModelReverse[index]
+                            distance: modelText == "inf" ? 0 : modelText
                             direction: 1
-                            style: CustomStyle { baseColor: axisColors[1]; darkness: (xyHandler.incrementsModelReverse.length-index-1)*0.06 }
+                            style: CustomStyle {
+                                baseColor: axisColors[1]
+                                darkness: (xyHandler.incrementsModelReverse.length-index-1)*0.06
+                                fontSize: root.fontSize
+                                fontIcon: modelText == "inf" ? "\ue316" : ""
+                                fontIconSize: root.fontSize * 2.5
+                            }
                         }
                     }
                 }
@@ -218,14 +246,21 @@ ApplicationItem {
                     Repeater {
                         model: xyHandler.incrementsModel
                         JogButton {
+                            property string modelText: xyHandler.incrementsModel[index]
                             Layout.preferredWidth: yAxisBottomLayout.width / xyHandler.incrementsModel.length * (index+1)
                             Layout.fillHeight: true
                             Layout.alignment: Qt.AlignHCenter
-                            text: "-" + xyHandler.incrementsModel[index]
+                            text: modelText == "inf" ? "" : "-" + modelText
                             axis: 1
-                            distance: xyHandler.incrementsModel[index] === "∞" ? 0 : xyHandler.incrementsModel[index]
+                            distance: modelText == "inf" ? 0 : modelText
                             direction: -1
-                            style: CustomStyle { baseColor: axisColors[1]; darkness: index*0.06 }
+                            style: CustomStyle {
+                                baseColor: axisColors[1]
+                                darkness: index*0.06
+                                fontSize: root.fontSize
+                                fontIcon: modelText == "inf" ? "\ue313" : ""
+                                fontIconSize: root.fontSize * 2.5
+                            }
                         }
                     }
                 }
@@ -254,7 +289,7 @@ ApplicationItem {
                             property int buttonBaseHeight: container.height / (incrementsModel.length*2+1)
 
                             id: axisHandler
-                            continousText: "∞"
+                            continousText: "inf"
                             core: root.core
                             axis: axisIndex+2
                         }
@@ -264,7 +299,7 @@ ApplicationItem {
                             height: axisHandler.buttonBaseHeight * 0.95
                             width: height
                             text: axisNames[2+index]
-                            style: CustomStyle { baseColor: root.axisColors[2+index]; radius: 1000; boldFont: true }
+                            style: CustomStyle { baseColor: root.axisColors[2+index]; radius: 1000; boldFont: true; fontSize: root.fontSize }
                             enabled: zZeroAction.enabled
                             tooltip: qsTr("Select axis action")
 
@@ -307,14 +342,21 @@ ApplicationItem {
                             Repeater {
                                 model: axisHandler.incrementsModelReverse
                                 JogButton {
+                                    property string modelText: axisHandler.incrementsModelReverse[index]
                                     Layout.preferredWidth: axisTopLayout.height / axisHandler.incrementsModelReverse.length * ((axisHandler.incrementsModelReverse.length - index - 1) * 0.2 + 1)
                                     Layout.fillHeight: true
                                     Layout.alignment: Qt.AlignHCenter
-                                    text: axisHandler.incrementsModelReverse[index]
+                                    text: modelText == "inf" ? "" : modelText
                                     axis: 2 + axisIndex
-                                    distance: axisHandler.incrementsModelReverse[index] === "∞" ? 0 : axisHandler.incrementsModelReverse[index]
+                                    distance: modelText === "inf" ? 0 : modelText
                                     direction: 1
-                                    style: CustomStyle { baseColor: axisColors[axisIndex+2]; darkness: (axisHandler.incrementsModelReverse.length-index-1)*0.06 }
+                                    style: CustomStyle {
+                                        baseColor: axisColors[axisIndex+2]
+                                        darkness: (axisHandler.incrementsModelReverse.length-index-1)*0.06
+                                        fontSize: root.fontSize
+                                        fontIcon: modelText == "inf" ? "\ue316" : ""
+                                        fontIconSize: root.fontSize * 2.5
+                                    }
                                 }
                             }
                         }
@@ -329,21 +371,27 @@ ApplicationItem {
                             Repeater {
                                 model: axisHandler.incrementsModel
                                 JogButton {
+                                    property string modelText: axisHandler.incrementsModel[index]
                                     Layout.preferredWidth: axisBottomLayout.height / axisHandler.incrementsModel.length * (index*0.2+1)
                                     Layout.fillHeight: true
                                     Layout.alignment: Qt.AlignHCenter
-                                    text: "-" + axisHandler.incrementsModel[index]
+                                    text: modelText == "inf" ? "" : "-" + modelText
                                     axis: axisIndex + 2
-                                    distance: axisHandler.incrementsModel[index] === "∞" ? 0 : axisHandler.incrementsModel[index]
+                                    distance: modelText === "inf" ? 0 : modelText
                                     direction: -1
-                                    style: CustomStyle { baseColor: axisColors[axisIndex+2]; darkness: index*0.06 }
+                                    style: CustomStyle {
+                                        baseColor: axisColors[axisIndex+2]
+                                        darkness: index*0.06
+                                        fontSize: root.fontSize
+                                        fontIcon: modelText == "inf" ? "\ue313" : ""
+                                        fontIconSize: root.fontSize * 2.5
+                                    }
                                 }
                             }
                         }
                     }
                 }
-
-              }
+            }
 
             Item {
                 property int axisIndex: status.synced ? status.config.axes : 0
@@ -430,6 +478,7 @@ ApplicationItem {
                         baseColor: axisColors[extruderControl.axisIndex];
                         radius: 1000
                         boldFont: true
+                        fontSize: root.fontSize
                     }
                     onClicked: toolSelectMenu.popup()
                     enabled: toolSelectAction.enabled
@@ -475,17 +524,22 @@ ApplicationItem {
                     Repeater {
                         model: numberModelReverse
                         ExtruderJogButton {
+                            property string modelText: numberModelReverse[index]
                             Layout.preferredWidth: extruderBottomLayout.height / numberModel.length * ((numberModel.length - index - 1) * 0.2 + 1)
                             Layout.fillHeight: true
                             Layout.alignment: Qt.AlignHCenter
-                            distance: numberModelReverse[index] === "∞" ? 0 : numberModelReverse[index]
+                            distance: modelText === "inf" ? 0 : modelText
                             direction: true
                             enabled: homeXButton.enabled && !jogTriggerPin.value
                                      && (!jogContinousPin.value || (distance == 0 && jogDirectionPin.value))
-                            text: "-" + numberModelReverse[index]
+                            text: modelText == "inf" ? "" : "-" + modelText
                             style: CustomStyle {
                                 baseColor: axisColors[extruderControl.axisIndex];
-                                darkness: (numberModel.length-index-1)*0.06 }
+                                darkness: (numberModel.length-index-1)*0.06
+                                fontSize: root.fontSize
+                                fontIcon: modelText == "inf" ? "\ue316" : ""
+                                fontIconSize: root.fontSize * 2.5
+                            }
                         }
                     }
                 }
@@ -501,17 +555,21 @@ ApplicationItem {
                     Repeater {
                         model: numberModel
                         ExtruderJogButton {
+                            property string modelText: numberModel[index]
                             Layout.preferredWidth: extruderBottomLayout.height / numberModel.length * (index*0.2+1)
                             Layout.fillHeight: true
                             Layout.alignment: Qt.AlignHCenter
-                            distance: numberModel[index] === "∞" ? 0 : numberModel[index]
+                            distance: modelText === "inf" ? 0 : modelText
                             direction: false
                             enabled: homeXButton.enabled && !jogTriggerPin.value
                                      && (!jogContinousPin.value || (distance == 0 && !jogDirectionPin.value))
-                            text: numberModel[index]
+                            text: modelText == "inf" ? "" : modelText
                             style: CustomStyle {
                                 baseColor: axisColors[extruderControl.axisIndex];
                                 darkness: index*0.06
+                                fontSize: root.fontSize
+                                fontIcon: modelText == "inf" ? "\ue313" : ""
+                                fontIconSize: root.fontSize * 2.5
                             }
                         }
                     }
@@ -523,11 +581,12 @@ ApplicationItem {
             spacing: Screen.pixelDensity * 3
             Layout.fillHeight: false
             Layout.fillWidth: true
-            Layout.preferredHeight: Screen.pixelDensity * 19
+            Layout.preferredHeight: root.baseSize * 0.18
 
             Label {
                 text: qsTr("Velocity" )
                 font.bold: true
+                font.pixelSize: root.fontSize
             }
 
             Repeater {
@@ -539,6 +598,7 @@ ApplicationItem {
                     color: axisColors[index]
                     axis: index
                     axisName: axisNames[index]
+                    font.pixelSize: root.fontSize
                 }
             }
 
@@ -552,6 +612,7 @@ ApplicationItem {
                 maximumValue: jogMaxVelocityPin.value
                 color: axisColors[extruderControl.axisIndex]
                 axisName: eName
+                font.pixelSize: root.fontSize
 
                 Binding { target: jogVelocityPin; property: "value"; value: jogVelocityKnob.value }
                 Binding { target: jogVelocityKnob; property: "value"; value: jogVelocityPin.value }

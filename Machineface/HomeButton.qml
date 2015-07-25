@@ -6,6 +6,7 @@ Button {
     property int axis: 0
     property string axisName: "X"
     property string color: "green"
+    property int fontSize: 10
 
     id: root
 
@@ -17,11 +18,10 @@ Button {
         baseColor: color
         textColor: !homeAction.homed ? systemPalette.text : "gray"
         boldFont: true
+        fontSize: root.fontSize
+        fontIcon: "\ue88a"
+        fontIconColor: !homeAction.homed ? systemPalette.text : "gray"
     }
     iconSource: " "
-    FontIcon { // home
-        font.pixelSize: parent.width * 0.5
-        text: "\ue88a"; color: !homeAction.homed ? systemPalette.text : "gray"
-    }
 }
 

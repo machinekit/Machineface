@@ -25,6 +25,7 @@ Knob {
         anchors.top: parent.top
         anchors.leftMargin: -parent.width * 0.1
         font.bold: true
+        font.pixelSize: root.font.pixelSize
         text: root.axisName
     }
 }
