@@ -10,9 +10,6 @@ Rectangle {
     color: systemPalette.dark
 
     SystemPalette { id: systemPalette }
-    FontLoader { id: iconFont; source: "icons/MaterialIcons-Regular.ttf" //material-icon-font.ttf"
-    Component.onCompleted: console.log(name)
-    }
 
     ColumnLayout {
         id: toolBar

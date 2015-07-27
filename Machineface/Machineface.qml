@@ -40,6 +40,11 @@ ServiceWindow {
         property string machineName: applicationCore.status.config.name
     }
 
+    FontLoader {
+        id: iconFont
+        source: "icons/MaterialIcons-Regular.ttf"
+    }
+
     ApplicationCore {
         id: applicationCore
         notifications: applicationNotifications
@@ -55,7 +60,7 @@ ServiceWindow {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        width: parent.height * 0.1
+        width: window.height * 0.1
     }
 
     ApplicationRemoteFileDialog {

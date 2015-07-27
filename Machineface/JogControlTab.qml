@@ -6,6 +6,7 @@ import QtQuick.Window 2.0
 Tab {
     id: tab
     title: qsTr("Jog")
+    active: true
 
     ButtonJog {
 
