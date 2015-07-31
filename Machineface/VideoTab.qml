@@ -41,8 +41,7 @@ Tab {
 
             FontIcon {
                 anchors.centerIn: parent
-                width: Screen.pixelDensity * 30
-                height: width
+                font.pixelSize: Screen.pixelDensity * 30
                 visible: !parent.videoEnabled
                 color: "white"
                 text: "\ue037"
