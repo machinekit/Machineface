@@ -31,16 +31,6 @@ ApplicationItem {
 
     id: root
 
-    Service {
-        id: halrcompService
-        type: "halrcomp"
-    }
-
-    Service {
-        id: halrcmdService
-        type: "halrcmd"
-    }
-
     HalRemoteComponent {
         id: halRemoteComponent
         halrcmdUri: halrcmdService.uri

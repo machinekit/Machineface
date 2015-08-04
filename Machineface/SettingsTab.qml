@@ -6,7 +6,6 @@ import Machinekit.Application.Controls 1.0
 
 Tab {
     title: qsTr("Settings")
-    active: true
 
     Item {
     ScrollView {

@@ -27,6 +27,7 @@ import Machinekit.Controls 1.0
 import Machinekit.Application 1.0
 import Machinekit.Application.Controls 1.0
 import Machinekit.PathView 1.0
+import Machinekit.Service 1.0
 
 ServiceWindow {
     id: window
@@ -43,6 +44,21 @@ ServiceWindow {
     FontLoader {
         id: iconFont
         source: "icons/MaterialIcons-Regular.ttf"
+    }
+
+    Service {
+        id: halrcompService
+        type: "halrcomp"
+    }
+
+    Service {
+        id: halrcmdService
+        type: "halrcmd"
+    }
+
+    Service {
+        id: videoService
+        type: "video"
     }
 
     ApplicationCore {
