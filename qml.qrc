@@ -7,7 +7,6 @@
         <file>Machineface/CustomStyle.qml</file>
         <file>Machineface/DisplayPanel.qml</file>
         <file>Machineface/PreviewTab.qml</file>
-        <file>Machineface/ExtrasTab.qml</file>
         <file>Machineface/JogControlTab.qml</file>
         <file>Machineface/ApplicationToolBar.qml</file>
         <file>Machineface/MdiTab.qml</file>
