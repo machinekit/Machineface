@@ -7,7 +7,6 @@ import Machinekit.VideoView 1.0
 Tab {
     id: tab
     title: qsTr("Video")
-    active: true
 
     Item {
         Service {
