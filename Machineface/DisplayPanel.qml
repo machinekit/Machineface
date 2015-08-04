@@ -10,6 +10,16 @@ import Machinekit.Controls 1.0
 import Machinekit.Application.Controls 1.0
 
 ColumnLayout {
+    Service {
+        id: halrcompService
+        type: "halrcomp"
+    }
+
+    Service {
+        id: halrcmdService
+        type: "halrcmd"
+    }
+
     DigitalReadOut {
         Layout.fillWidth: true
     }
@@ -34,7 +44,6 @@ ColumnLayout {
             logHeight: parent.height * 0.25
         }
     }
-
 
     Repeater {
         model: 10
