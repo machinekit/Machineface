@@ -84,12 +84,12 @@ ServiceWindow {
         anchors.rightMargin: Screen.pixelDensity
         anchors.leftMargin: Screen.pixelDensity / 2
 
-        JogControlTab { onLoaded: window.updateServices() }
+        JogControlTab { }
         MdiTab { }
         GCodeTab { }
         /*PreviewTab { }*/
-        VideoTab { onLoaded: window.updateServices() }
-        SettingsTab { onLoaded: window.updateServices() }
+        VideoTab { }
+        SettingsTab { }
     }
 
     DisplayPanel {
