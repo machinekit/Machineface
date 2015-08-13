@@ -20,29 +20,6 @@ Tab {
             width: scrollView.width
             spacing: Screen.pixelDensity
 
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.fillHeight: false
-
-                Label {
-                    text: qsTr("Feed Override")
-                    font.bold: true
-                }
-
-                Item {
-                    Layout.fillWidth: true
-                }
-
-                Label {
-                    text: (feedrateSlider.value * 100).toFixed(0) + "%"
-                }
-            }
-
-            FeedrateSlider {
-                id: feedrateSlider
-                Layout.fillWidth: true
-            }
-
             VelocityExtrusionControl {
                 Layout.fillWidth: false
                 id: velocityExtrusionControl
