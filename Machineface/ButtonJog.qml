@@ -77,6 +77,34 @@ ApplicationItem {
                     axis: 0
                 }
 
+                JogKeyHandler {
+                    baseKey: "Right"
+                    axis: 0
+                    axisHandler: xyHandler
+                    direction: 1
+                }
+
+                JogKeyHandler {
+                    baseKey: "Left"
+                    axis: 0
+                    axisHandler: xyHandler
+                    direction: -1
+                }
+
+                JogKeyHandler {
+                    baseKey: "Up"
+                    axis: 1
+                    axisHandler: xyHandler
+                    direction: 1
+                }
+
+                JogKeyHandler {
+                    baseKey: "Down"
+                    axis: 1
+                    axisHandler: xyHandler
+                    direction: -1
+                }
+
                 Button {
                     anchors.centerIn: parent
                     height: xyHandler.buttonBaseSize * 0.95
@@ -282,6 +310,22 @@ ApplicationItem {
                             continousText: "inf"
                             core: root.core
                             axis: axisIndex+2
+                        }
+
+                        JogKeyHandler {
+                            baseKey: "PgUp"
+                            axis: axisIndex+2
+                            axisHandler: axisHandler
+                            direction: 1
+                            enabled: axis == 2
+                        }
+
+                        JogKeyHandler {
+                            baseKey: "PgDown"
+                            axis: axisIndex+2
+                            axisHandler: axisHandler
+                            direction: -1
+                            enabled: axis == 2
                         }
 
                         Button {
