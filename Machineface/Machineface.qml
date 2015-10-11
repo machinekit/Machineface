@@ -36,7 +36,7 @@ ServiceWindow {
     height: 600
     title: applicationCore.applicationName + (d.machineName == "" ? "" :" - " +  d.machineName)
 
-    QtObject {
+    Item {
         id: d
         property string machineName: applicationCore.status.config.name
     }
