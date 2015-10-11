@@ -28,7 +28,8 @@ Tab {
 
             ListView {
                 Layout.fillHeight: true
-                Layout.preferredWidth: (count > 0) ? dummyButton.width : 0 // 20 characters
+                Layout.preferredWidth: dummyButton.width // 20 characters
+                visible: count > 0
                 model: userCommandAction.commands
                 spacing: Screen.pixelDensity
                 enabled: userCommandAction.enabled
