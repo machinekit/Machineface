@@ -45,7 +45,7 @@ ApplicationItem {
 
     JogDistanceHandler {
         id: defaultHandler
-        continousText: "inf"
+        continuousText: "inf"
         core: root.core
         axis: -1
     }
@@ -72,7 +72,7 @@ ApplicationItem {
                     property int buttonBaseSize: container.height / (incrementsModel.length*2+1)
 
                     id: xyHandler
-                    continousText: "inf"
+                    continuousText: "inf"
                     core: root.core
                     axis: 0
                 }
@@ -307,7 +307,7 @@ ApplicationItem {
                             property int buttonBaseHeight: container.height / (incrementsModel.length*2+1)
 
                             id: axisHandler
-                            continousText: "inf"
+                            continuousText: "inf"
                             core: root.core
                             axis: axisIndex+2
                         }
@@ -469,7 +469,7 @@ ApplicationItem {
                 }
 
                 HalPin {
-                    id: jogContinousPin
+                    id: jogContinuousPin
                     name: "continuous"
                     direction: HalPin.IO
                     type: HalPin.Bit
@@ -565,7 +565,7 @@ ApplicationItem {
                             distance: modelText === "inf" ? 0 : modelText
                             direction: true
                             enabled: homeXButton.enabled && !jogTriggerPin.value
-                                     && (!jogContinousPin.value || (distance == 0 && jogDirectionPin.value))
+                                     && (!jogContinuousPin.value || (distance == 0 && jogDirectionPin.value))
                             text: modelText == "inf" ? "" : "-" + modelText
                             style: CustomStyle {
                                 baseColor: axisColors[extruderControl.axisIndex];
@@ -596,7 +596,7 @@ ApplicationItem {
                             distance: modelText === "inf" ? 0 : modelText
                             direction: false
                             enabled: homeXButton.enabled && !jogTriggerPin.value
-                                     && (!jogContinousPin.value || (distance == 0 && !jogDirectionPin.value))
+                                     && (!jogContinuousPin.value || (distance == 0 && !jogDirectionPin.value))
                             text: modelText == "inf" ? "" : modelText
                             style: CustomStyle {
                                 baseColor: axisColors[extruderControl.axisIndex];
