@@ -21,6 +21,7 @@
 ****************************************************************************/
 import QtQuick 2.0
 import QtQuick.Controls 1.1
+import QtQuick.Window 2.0
 import Machinekit.Application 1.0
 import Machinekit.Application.Controls 1.0
 import Machinekit.Service 1.0
@@ -30,8 +31,10 @@ ApplicationWindow {
 
     visibility: (Qt.platform.os == "android") ? "FullScreen" : "AutomaticVisibility"
     visible: true
-    width: 1000
-    height: 600
+    x: (Qt.platform.os == "android") ? 0 : (Screen.width - width ) / 2
+    y: (Qt.platform.os == "android") ? 0 : (Screen.height - height ) / 2
+    width: (Qt.platform.os == "android") ? Screen.width : Screen.width * 0.7
+    height: (Qt.platform.os == "android") ? Screen.height : Screen.height * 0.7
     title: connectionWindow.title
     toolBar: connectionWindow.toolBar
     statusBar: connectionWindow.statusBar
@@ -42,8 +45,8 @@ ApplicationWindow {
 
         anchors.fill: parent
         defaultTitle: "Machineface"
-        autoSelectInstance: false
-        autoSelectApplication: false
+        //autoSelectInstance: true
+        autoSelectApplication: true
         localVisible: true
         remoteVisible: false
         lookupMode: ServiceDiscovery.MulticastDNS
