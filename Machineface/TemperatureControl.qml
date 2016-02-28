@@ -51,6 +51,7 @@ ColumnLayout {
             }
 
             HalLed {
+                id: activeLed
                 name: "active"
                 onColor: "orange"
                 Layout.preferredHeight: tempSetLabel.height * 0.9
@@ -58,25 +59,20 @@ ColumnLayout {
             }
 
             HalLed {
+                id: inTempRangeLed
                 name: "temp.in-range"
                 onColor: "green"
                 Layout.preferredHeight: tempSetLabel.height * 0.9
                 Layout.preferredWidth: tempSetLabel.height * 0.9
             }
 
-            Led {
-                value: errorPin.value
+            HalLed {
+                id: errorLed
+                name: "error"
                 onColor: "red"
                 Layout.preferredHeight: tempSetLabel.height * 0.9
                 Layout.preferredWidth: tempSetLabel.height * 0.9
             }
-        }
-
-        HalPin {
-            id: errorPin
-            name: "error"
-            direction: HalPin.In
-            type: HalPin.Bit
         }
 
         HalPin {
@@ -106,15 +102,22 @@ ColumnLayout {
             name: "temp.meas"
             suffix: "°C"
             decimals: 1
+            valueVisible: !errorLed.value
             minimumValueVisible: false
             maximumValueVisible: false
             minimumValue: tempItem.gaugeMinimumValue
             maximumValue: tempItem.gaugeMaximumValue
             z0BorderValue: tempItem.gaugeZ0BorderValue
             z1BorderValue: tempItem.gaugeZ1BorderValue
-            z0Color: "green"
-            z1Color: "yellow"
-            z2Color: "red"
+            z0Color: valueVisible ? "green" : "white"
+            z1Color: valueVisible ? "yellow" : "white"
+            z2Color: valueVisible ? "red" : "white"
+
+            Label {
+                anchors.centerIn: parent
+                text: qsTr("N/A")
+                visible: !tempGauge.valueVisible
+            }
 
             MouseArea {
                 anchors.fill: parent
@@ -135,6 +138,7 @@ ColumnLayout {
             leftTextVisible: false
             rightTextVisible: false
             autoSampling: (tempGauge.halPin.synced) && visible
+            autoUpdate: autoSampling
             updateInterval: 500
             timeSpan: 120000
         }
@@ -147,7 +151,7 @@ ColumnLayout {
             HalSpinBox {
                 Layout.fillWidth: true
                 id: tempSetSpin
-                enabled: errorPin.value === false
+                enabled: errorLed.value === false
                 name: "temp.set"
                 halPin.direction: HalPin.IO
                 minimumValue: tempItem.spinMinimumValue
@@ -163,7 +167,7 @@ ColumnLayout {
 
             Switch {
                 id: onOffSwitch
-                enabled: errorPin.value === false
+                enabled: errorLed.value === false
                 onCheckedChanged: {
                     if (checked) {
                         if (tempSetSpin.value == 0) {
