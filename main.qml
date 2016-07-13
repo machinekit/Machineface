@@ -45,7 +45,7 @@ ApplicationWindow {
 
         anchors.fill: parent
         defaultTitle: "Machineface"
-        //autoSelectInstance: true
+        autoSelectInstance: true
         autoSelectApplication: true
         localVisible: true
         remoteVisible: false
