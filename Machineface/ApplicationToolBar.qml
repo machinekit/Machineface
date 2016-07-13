@@ -19,16 +19,7 @@ Rectangle {
         TouchButton {
             Layout.fillWidth: true
             Layout.preferredHeight: width
-            action : EstopAction { id: estopAction }
-            iconSource: ""
-            FontIcon { // report
-                text: "\ue160"; color: systemPalette.light
-            }
-        }
-        TouchButton {
-            Layout.fillWidth: true
-            Layout.preferredHeight: width
-            action : PowerAction { }
+            action : EstopPowerAction { }
             iconSource: ""
             FontIcon { // settings-power
                 text: "\ue8c6"; color: systemPalette.light
@@ -46,10 +37,13 @@ Rectangle {
         TouchButton {
             Layout.fillWidth: true
             Layout.preferredHeight: width
-            action : ReopenAction { }
+            action : OpenAction {
+                fileDialog: applicationRemoteFileDialog
+                shortcut: "Shift+O"
+            }
             iconSource: ""
-            FontIcon { // refresh
-                text: "\ue5d5"; color: systemPalette.light
+            FontIcon { // folder-open
+                text: "\ue2c2"; color: systemPalette.light
             }
         }
         TouchButton {
@@ -77,15 +71,6 @@ Rectangle {
             iconSource: ""
             FontIcon { // stop
                 text: "\ue047"; color: systemPalette.light
-            }
-        }
-        TouchButton {
-            Layout.fillWidth: true
-            Layout.preferredHeight: width
-            action : StepProgramAction { }
-            iconSource: ""
-            FontIcon { // skip_next
-                text: "\ue044"; color: systemPalette.light
             }
         }
 

@@ -80,14 +80,14 @@ ServiceWindow {
     }
 
     ApplicationRemoteFileDialog {
-        id: applicationFileDialog
+        id: applicationRemoteFileDialog
         width: window.width
         height: window.height
-        fileDialog: fileDialog
+        fileDialog: applicationFileDialog
     }
 
     ApplicationFileDialog {
-        id: fileDialog
+        id: applicationFileDialog
     }
 
     TabView {
