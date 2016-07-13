@@ -55,6 +55,11 @@ Tab {
                 text: qsTr("Show distance to go")
             }
 
+            Label {
+                text: qsTr("Other")
+                font.bold: true
+            }
+
             // temporarily disable preview until it is working in a better way
             ToggleSettingCheck {
                 id: enablePreviewAction
@@ -62,6 +67,17 @@ Tab {
                 valueName: "enable"
                 text: qsTr("Enable preview")
                 visible: checked  // in case preview was accidentally enabled show this check box
+            }
+
+            CheckBox {
+                id: teleopCheck
+                checked: teleopAction.checked
+                text: teleopAction.text
+                onClicked: teleopAction.trigger()
+
+                TeleopAction {
+                    id: teleopAction
+                }
             }
 
            /* ToggleSettingCheck {
