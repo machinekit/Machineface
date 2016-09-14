@@ -17,7 +17,7 @@ Tab {
 
         ColumnLayout {
             id: column1
-            width: scrollView.width
+            width: scrollView.width - Screen.pixelDensity * 4
             spacing: Screen.pixelDensity
 
             VelocityExtrusionControl {
@@ -71,6 +71,7 @@ Tab {
 
             CheckBox {
                 id: teleopCheck
+                Layout.fillWidth: true
                 checked: teleopAction.checked
                 text: teleopAction.text
                 onClicked: teleopAction.trigger()
