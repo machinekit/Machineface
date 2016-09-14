@@ -80,6 +80,18 @@ Tab {
                 }
             }
 
+            CheckBox {
+                id: overrideLimitsCheck
+                Layout.fillWidth: true
+                checked: overrideLimitsAction.checked
+                text: overrideLimitsAction.text
+                onClicked: overrideLimitsAction.trigger()
+
+                OverrideLimitsAction {
+                    id: overrideLimitsAction
+                }
+            }
+
             RowLayout {
                 Layout.fillWidth: true
                 Label {
