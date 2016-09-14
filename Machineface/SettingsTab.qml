@@ -80,6 +80,23 @@ Tab {
                 }
             }
 
+            RowLayout {
+                Layout.fillWidth: true
+                Label {
+                    text: qsTr("Maximum Velocity:")
+                }
+
+                MaximumVelocitySlider {
+                    id: maximumVelocitySlider
+                    Layout.fillWidth: true
+                }
+
+                Label {
+                    Layout.preferredWidth: Screen.pixelDensity * 10
+                    text: maximumVelocitySlider.displayValue.toFixed(0) + maximumVelocitySlider.units
+                }
+            }
+
            /* ToggleSettingCheck {
                 id: showMachineLimitsAction
                 groupName: "preview"
