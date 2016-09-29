@@ -74,6 +74,7 @@ Tab {
                 Layout.fillWidth: true
                 checked: teleopAction.checked
                 text: teleopAction.text
+                enabled: teleopAction.enabled
                 onClicked: teleopAction.trigger()
 
                 TeleopAction {
