@@ -16,13 +16,13 @@ ColumnLayout {
 
     TemperatureControl {
         componentName: "fdm-hbp"
-        labelName: "Heated Bed"
+        labelName: qsTr("Heated Bed")
         logHeight: parent.height * 0.25
     }
 
     TemperatureControl {
         componentName: "fdm-hbc"
-        labelName: "Heated Chamber"
+        labelName: qsTr("Heated Chamber")
         logHeight: parent.height * 0.25
     }
 
@@ -30,7 +30,7 @@ ColumnLayout {
         model: 10
         TemperatureControl {
             componentName: "fdm-e" + index
-            labelName: "Extruder " + index
+            labelName: qsTr("Extruder %1").arg(index)
             logHeight: parent.height * 0.25
         }
     }
@@ -39,7 +39,7 @@ ColumnLayout {
         model: 10
         FanControl {
             componentName: "fdm-f" + index
-            labelName: "Fan " + index
+            labelName: qsTr("Fan %1").arg(index)
         }
     }
 
@@ -47,7 +47,7 @@ ColumnLayout {
         model: 3
         LightControl {
             componentName: "fdm-l" + index
-            labelName: "Light " + index
+            labelName: qsTr("Light %1").arg(index)
         }
     }
 
