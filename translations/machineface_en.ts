@@ -7,6 +7,10 @@
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>About Machineface</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ApplicationMenu</name>
@@ -193,13 +197,6 @@
     <name>TemperatureControl</name>
     <message>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ToggleSettingCheck</name>
-    <message>
-        <source>Group Value</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

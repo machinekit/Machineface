@@ -15,7 +15,9 @@ int main(int argc, char *argv[])
     QTranslator translator;
     if (translator.load(QLocale(), QLatin1String("machineface"),
                           QLatin1String("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+    {
         QCoreApplication::installTranslator(&translator);
+    }
 
     return app.exec();
 }

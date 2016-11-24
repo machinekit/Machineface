@@ -7,6 +7,10 @@
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
+    <message>
+        <source>About Machineface</source>
+        <translation>Über Machineface</translation>
+    </message>
 </context>
 <context>
     <name>ApplicationMenu</name>
@@ -200,7 +204,7 @@
     <name>ToggleSettingCheck</name>
     <message>
         <source>Group Value</source>
-        <translation>Gruppenwert</translation>
+        <translation type="vanished">Gruppenwert</translation>
     </message>
 </context>
 <context>
