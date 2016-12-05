@@ -22,9 +22,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
 import QtQuick.Window 2.0
-import Machinekit.Application 1.0
-import Machinekit.Application.Controls 1.0
-import Machinekit.Service 1.0
 
 ApplicationWindow {
     id: applicationWindow
@@ -40,22 +37,9 @@ ApplicationWindow {
     statusBar: connectionWindow.statusBar
     menuBar: connectionWindow.menuBar
 
-    ConnectionWindow {
+    Init {
         id: connectionWindow
-
         anchors.fill: parent
-        defaultTitle: "Machineface"
-        autoSelectInstance: true
-        autoSelectApplication: true
-        localVisible: true
-        remoteVisible: false
-        lookupMode: ServiceDiscovery.MulticastDNS
-        applications: [
-            ApplicationDescription {
-                sourceDir: "qrc:/Machineface/"
-            }
-        ]
-        instanceFilter: ServiceDiscoveryFilter{ name: "" }
     }
 }
 

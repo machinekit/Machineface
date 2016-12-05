@@ -17,7 +17,7 @@ Tab {
 
         ColumnLayout {
             id: column1
-            width: scrollView.width
+            width: scrollView.width - Screen.pixelDensity * 4
             spacing: Screen.pixelDensity
 
             VelocityExtrusionControl {
@@ -71,8 +71,10 @@ Tab {
 
             CheckBox {
                 id: teleopCheck
+                Layout.fillWidth: true
                 checked: teleopAction.checked
                 text: teleopAction.text
+                enabled: teleopAction.enabled
                 onClicked: teleopAction.trigger()
 
                 TeleopAction {
@@ -80,61 +82,34 @@ Tab {
                 }
             }
 
-           /* ToggleSettingCheck {
-                id: showMachineLimitsAction
-                groupName: "preview"
-                valueName: "showMachineLimits"
-                text: qsTr("Show machine limits")
+            CheckBox {
+                id: overrideLimitsCheck
+                Layout.fillWidth: true
+                checked: overrideLimitsAction.checked
+                text: overrideLimitsAction.text
+                onClicked: overrideLimitsAction.trigger()
+
+                OverrideLimitsAction {
+                    id: overrideLimitsAction
+                }
             }
 
-            ToggleSettingCheck {
-                id: showProgramAction
-                groupName: "preview"
-                valueName: "showProgram"
-                text: qsTr("Show program")
-            }
+            RowLayout {
+                Layout.fillWidth: true
+                Label {
+                    text: qsTr("Maximum Velocity:")
+                }
 
-            ToggleSettingCheck {
-                id: showProgramExtentsAction
-                groupName: "preview"
-                valueName: "showProgramExtents"
-                text: qsTr("Show program extents")
-            }
+                MaximumVelocitySlider {
+                    id: maximumVelocitySlider
+                    Layout.fillWidth: true
+                }
 
-            ToggleSettingCheck {
-                id: showProgramRapidsAction
-                groupName: "preview"
-                valueName: "showProgramRapids"
-                text: qsTr("Show program rapids")
+                Label {
+                    Layout.preferredWidth: Screen.pixelDensity * 10
+                    text: maximumVelocitySlider.displayValue.toFixed(0) + maximumVelocitySlider.units
+                }
             }
-
-            ToggleSettingCheck {
-                id: alphaBlendProgramAction
-                groupName: "preview"
-                valueName: "alphaBlendProgram"
-                text: qsTr("Alpha-blend program")
-            }
-
-            ToggleSettingCheck {
-                id: showLivePlotAction
-                groupName: "preview"
-                valueName: "showLivePlot"
-                text: qsTr("Show live plot")
-            }
-
-            ToggleSettingCheck {
-                id: showToolAction
-                groupName: "preview"
-                valueName: "showTool"
-                text: qsTr("Show tool")
-            }
-
-            ToggleSettingCheck {
-                id: showCoordinateAction
-                groupName: "preview"
-                valueName: "showCoordinate"
-                text: qsTr("Show coordinate")
-            }*/
         }
         }
     }
