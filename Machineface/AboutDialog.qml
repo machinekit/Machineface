@@ -7,7 +7,7 @@ import QtQuick.Window 2.0
 Dialog {
     property string version: "0.9"
     id: aboutDialog
-    title: "About Machineface"
+    title: qsTr("About Machineface")
 
     SystemPalette { id: systemPalette }
 
