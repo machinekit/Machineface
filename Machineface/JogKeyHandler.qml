@@ -8,6 +8,8 @@ Item {
     property var axisHandler: xyHandler
     property int direction: 1
 
+    enabled: visible // disable jog keys when not visible
+
     JogAction {
         property int index: 0
         property bool available: (keyHandler.axisHandler.distanceModel.length-1) > index
