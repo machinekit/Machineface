@@ -9,7 +9,7 @@ import Machinekit.Service 1.0
 
 ColumnLayout {
     id: root
-    property string labelName: "Velocity Extrusion"
+    property string labelName: qsTr("Velocity Extrusion")
     property bool wasConnected: false
 
     visible: halRemoteComponent.ready || wasConnected
