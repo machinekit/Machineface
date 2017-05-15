@@ -56,11 +56,6 @@ ServiceWindow {
         type: "halrcmd"
     }
 
-    Service {
-        id: videoService
-        type: "video"
-    }
-
     ApplicationCore {
         id: applicationCore
         notifications: applicationNotifications
