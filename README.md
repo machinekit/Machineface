@@ -14,7 +14,7 @@ To use Machineface you have to clone the repository on your Machinekit computer:
 
 ``` bash
 cd ~/
-git clone https://github.com/machinekoder/Machineface.git
+git clone https://github.com/qtquickvcp/Machineface.git
 ```
 
 Next, you have to supply the path to the directory to the *configserver*.
@@ -23,6 +23,6 @@ Next, you have to supply the path to the directory to the *configserver*.
 configserver -n 'My Machine' ~/Machineface
 ```
 
-The UI is then automatically deployed to the [Machinekit Client](https://github.com/machinekoder/MachinekitClient)
+The UI is then automatically deployed to the [Machinekit Client](https://github.com/qtquickvcp/QtQuickVcp#download)
 
 For more information about using Machinekit with remote user interfaces please read the [QtQuickVcp documentation](https://github.com/machinekoder/QtQuickVcp#using_mkwrapper).
