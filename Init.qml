@@ -5,10 +5,10 @@ import Machinekit.Application.Controls 1.0
 import Machinekit.Service 1.0
 
 Item {
-    property string title: connectionWindow.title
-    property Item toolBar: connectionWindow.toolBar
-    property Item statusBar: connectionWindow.statusBar
-    property MenuBar menuBar: connectionWindow.menuBar
+    property alias title: connectionWindow.title
+    property alias toolBar: connectionWindow.toolBar
+    property alias statusBar: connectionWindow.statusBar
+    property alias menuBar: connectionWindow.menuBar
 
     id: applicationWindow
     width: 1280
