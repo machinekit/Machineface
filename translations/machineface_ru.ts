@@ -194,6 +194,29 @@
     </message>
 </context>
 <context>
+    <name>SmartplugControl</name>
+    <message>
+        <source>Smartplugs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Power enable:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fan enable:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Power:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Energy:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TemperatureControl</name>
     <message>
         <source>N/A</source>
