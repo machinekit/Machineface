@@ -7,7 +7,6 @@ import Machinekit.Application.Controls 1.0
 Tab {
     title: qsTr("Settings")
 
-    Item {
     ScrollView {
         id: scrollView
         anchors.fill: parent
@@ -110,7 +109,6 @@ Tab {
                     text: maximumVelocitySlider.displayValue.toFixed(0) + maximumVelocitySlider.units
                 }
             }
-        }
         }
     }
 }

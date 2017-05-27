@@ -14,7 +14,7 @@ Button {
 
     action: HomeAxisAction { id: homeAction; axis: root.axis }
     text: axisName
-    style: CustomStyle {
+    style: CustomButtonStyle {
         baseColor: color
         textColor: !homeAction.homed ? systemPalette.text : "gray"
         boldFont: true

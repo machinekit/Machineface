@@ -13,6 +13,7 @@ ColumnLayout {
     property bool wasConnected: false
 
     visible: halRemoteComponent.ready || wasConnected
+    enabled:  halRemoteComponent.connected
 
     HalRemoteComponent {
         id: halRemoteComponent
@@ -20,53 +21,48 @@ ColumnLayout {
         halrcompUri: halrcompService.uri
         ready: (halrcmdService.ready && halrcompService.ready) || connected
         name: "gantry-config"
-        containerItem: container
+        containerItem: root
         create: false
         onErrorStringChanged: console.log(errorString)
         onConnectedChanged: root.wasConnected = true
     }
 
-    ColumnLayout {
-        id: container
-        enabled:  halRemoteComponent.connected
-        Layout.fillWidth: true
+    Label {
+        font.bold: true
+        text: root.labelName
+    }
+
+    GridLayout {
+        columns: 2
 
         Label {
-            font.bold: true
-            text: root.labelName
+            text: qsTr("Left offset:")
         }
-        GridLayout {
-            columns: 2
 
-            Label {
-                text: qsTr("Left offset:")
-            }
+        HalSpinBox {
+            Layout.fillWidth: true
+            name: "offset-left"
+            suffix: "mm"
+            minimumValue: 0.0
+            maximumValue: 999.9
+            decimals: 3
+            stepSize: 0.05
+            halPin.direction: HalPin.IO
+        }
 
-            HalSpinBox {
-                Layout.fillWidth: true
-                name: "offset-left"
-                suffix: "mm"
-                minimumValue: 0.0
-                maximumValue: 999.9
-                decimals: 3
-                stepSize: 0.05
-                halPin.direction: HalPin.IO
-            }
+        Label {
+            text: qsTr("Right offset:")
+        }
 
-            Label {
-                text: qsTr("Right offset:")
-            }
-
-            HalSpinBox {
-                Layout.fillWidth: true
-                name: "offset-right"
-                suffix: "mm"
-                minimumValue: 0.0
-                maximumValue: 999.9
-                decimals: 3
-                stepSize: 0.05
-                halPin.direction: HalPin.IO
-            }
+        HalSpinBox {
+            Layout.fillWidth: true
+            name: "offset-right"
+            suffix: "mm"
+            minimumValue: 0.0
+            maximumValue: 999.9
+            decimals: 3
+            stepSize: 0.05
+            halPin.direction: HalPin.IO
         }
     }
 }

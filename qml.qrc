@@ -4,7 +4,6 @@
         <file>Machineface/Machineface.qml</file>
         <file>Machineface/description.ini</file>
         <file>Machineface/ButtonJog.qml</file>
-        <file>Machineface/CustomStyle.qml</file>
         <file>Machineface/DisplayPanel.qml</file>
         <file>Machineface/PreviewTab.qml</file>
         <file>Machineface/JogControlTab.qml</file>
@@ -30,5 +29,7 @@
         <file>Machineface/icons/MaterialIcons-Regular.ttf</file>
         <file>Machineface/JogKeyHandler.qml</file>
         <file>Init.qml</file>
+        <file>Machineface/CustomButtonStyle.qml</file>
+        <file>Machineface/DisplayPanelBase.qml</file>
     </qresource>
 </RCC>

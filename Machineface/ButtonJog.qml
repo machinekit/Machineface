@@ -110,7 +110,7 @@ ApplicationItem {
                     height: xyHandler.buttonBaseSize * 0.95
                     width: height
                     text: axisNames[0] + axisNames[1]
-                    style: CustomStyle { baseColor: root.specialColor; radius: 1000; boldFont: true; fontSize: root.fontSize }
+                    style: CustomButtonStyle { baseColor: root.specialColor; radius: 1000; boldFont: true; fontSize: root.fontSize }
                     enabled: xyZeroAction.enabled
                     tooltip: qsTr("Move ") + axisNames[0] + qsTr(" and ") + axisNames[1] + qsTr(" axis to 0")
 
@@ -186,7 +186,7 @@ ApplicationItem {
                             axis: 0
                             distance: modelText === "inf" ? 0 : modelText
                             direction: 1
-                            style: CustomStyle {
+                            style: CustomButtonStyle {
                                 baseColor: axisColors[0]
                                 darkness: index*0.06
                                 fontSize: root.fontSize
@@ -214,7 +214,7 @@ ApplicationItem {
                             axis: 0
                             distance: modelText === "inf" ? 0 : modelText
                             direction: -1
-                            style: CustomStyle {
+                            style: CustomButtonStyle {
                                 baseColor: axisColors[0]
                                 darkness: (numberModel.length-index-1)*0.06
                                 fontSize: root.fontSize
@@ -243,7 +243,7 @@ ApplicationItem {
                             axis: 1
                             distance: modelText == "inf" ? 0 : modelText
                             direction: 1
-                            style: CustomStyle {
+                            style: CustomButtonStyle {
                                 baseColor: axisColors[1]
                                 darkness: (xyHandler.incrementsModelReverse.length-index-1)*0.06
                                 fontSize: root.fontSize
@@ -272,7 +272,7 @@ ApplicationItem {
                             axis: 1
                             distance: modelText == "inf" ? 0 : modelText
                             direction: -1
-                            style: CustomStyle {
+                            style: CustomButtonStyle {
                                 baseColor: axisColors[1]
                                 darkness: index*0.06
                                 fontSize: root.fontSize
@@ -333,7 +333,7 @@ ApplicationItem {
                             height: axisHandler.buttonBaseHeight * 0.95
                             width: height
                             text: axisNames[2+index]
-                            style: CustomStyle { baseColor: root.axisColors[2+index]; radius: 1000; boldFont: true; fontSize: root.fontSize }
+                            style: CustomButtonStyle { baseColor: root.axisColors[2+index]; radius: 1000; boldFont: true; fontSize: root.fontSize }
                             enabled: zZeroAction.enabled
                             tooltip: qsTr("Select axis action")
 
@@ -384,7 +384,7 @@ ApplicationItem {
                                     axis: 2 + axisIndex
                                     distance: modelText === "inf" ? 0 : modelText
                                     direction: 1
-                                    style: CustomStyle {
+                                    style: CustomButtonStyle {
                                         baseColor: axisColors[axisIndex+2]
                                         darkness: (axisHandler.incrementsModelReverse.length-index-1)*0.06
                                         fontSize: root.fontSize
@@ -413,7 +413,7 @@ ApplicationItem {
                                     axis: axisIndex + 2
                                     distance: modelText === "inf" ? 0 : modelText
                                     direction: -1
-                                    style: CustomStyle {
+                                    style: CustomButtonStyle {
                                         baseColor: axisColors[axisIndex+2]
                                         darkness: index*0.06
                                         fontSize: root.fontSize
@@ -508,7 +508,7 @@ ApplicationItem {
                     height: root.buttonBaseHeight * 0.95
                     width: height
                     text: eName + jogExtruderSelPin.value
-                    style: CustomStyle {
+                    style: CustomButtonStyle {
                         baseColor: axisColors[extruderControl.axisIndex];
                         radius: 1000
                         boldFont: true
@@ -567,7 +567,7 @@ ApplicationItem {
                             enabled: homeXButton.enabled && !jogTriggerPin.value
                                      && (!jogContinuousPin.value || (distance == 0 && jogDirectionPin.value))
                             text: modelText == "inf" ? "" : "-" + modelText
-                            style: CustomStyle {
+                            style: CustomButtonStyle {
                                 baseColor: axisColors[extruderControl.axisIndex];
                                 darkness: (numberModel.length-index-1)*0.06
                                 fontSize: root.fontSize
@@ -598,7 +598,7 @@ ApplicationItem {
                             enabled: homeXButton.enabled && !jogTriggerPin.value
                                      && (!jogContinuousPin.value || (distance == 0 && !jogDirectionPin.value))
                             text: modelText == "inf" ? "" : modelText
-                            style: CustomStyle {
+                            style: CustomButtonStyle {
                                 baseColor: axisColors[extruderControl.axisIndex];
                                 darkness: index*0.06
                                 fontSize: root.fontSize

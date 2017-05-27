@@ -15,6 +15,7 @@ ColumnLayout {
     property bool wasConnected: false
 
     visible: halRemoteComponent.connected || wasConnected
+    enabled:  halRemoteComponent.connected
 
     HalRemoteComponent {
         id: halRemoteComponent
@@ -22,61 +23,55 @@ ColumnLayout {
         halrcompUri: halrcompService.uri
         ready: (halrcmdService.ready && halrcompService.ready) || connected
         name: root.componentName
-        containerItem: container
+        containerItem: root
         create: false
         onErrorStringChanged: console.log(errorString)
         onConnectedChanged: root.wasConnected = true
     }
 
-    ColumnLayout {
-        id: container
+    Label {
+        text: root.labelName
+        font.bold: true
+    }
+
+    Gauge {
+        id: fanSpeedGauge
         Layout.fillWidth: true
-        enabled:  halRemoteComponent.connected
+        value: fanSpeedSlider.value
+        suffix: "%"
+        valueLabel.text: (value / 2.55 ).toFixed(decimals) + suffix
+        decimals: 0
+        minimumValueVisible: false
+        maximumValueVisible: false
+        minimumValue: 0
+        maximumValue: 255
+        z0BorderValue: 1
+        z1BorderValue: 1
+        z0Color: "#C9FDFF"
+        z1Color: "#9ADAFF"
+        z2Color: "#9ADAFF"
 
-        Label {
-            text: root.labelName
-            font.bold: true
+        MouseArea {
+            anchors.fill: parent
+            onClicked: fanSpeedSlider.visible = !fanSpeedSlider.visible
+            cursorShape: "PointingHandCursor"
         }
+    }
 
-        Gauge {
-            id: fanSpeedGauge
-            Layout.fillWidth: true
-            value: fanSpeedSlider.value
-            suffix: "%"
-            valueLabel.text: (value / 2.55 ).toFixed(decimals) + suffix
-            decimals: 0
-            minimumValueVisible: false
-            maximumValueVisible: false
-            minimumValue: 0
-            maximumValue: 255
-            z0BorderValue: 1
-            z1BorderValue: 1
-            z0Color: "#C9FDFF"
-            z1Color: "#9ADAFF"
-            z2Color: "#9ADAFF"
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: fanSpeedSlider.visible = !fanSpeedSlider.visible
-                cursorShape: "PointingHandCursor"
-            }
-        }
-
-        HalSlider {
-            id: fanSpeedSlider
-            Layout.fillWidth: true
-            name: "set"
-            halPin.direction: HalPin.IO
-            visible: false
-            minimumValue: 0
-            maximumValue: 255
-            stepSize: 1
-            updateValueWhileDragging: true
-            tickmarksEnabled: false
-            minimumValueVisible: false
-            maximumValueVisible: false
-            valueVisible: false
-        }
+    HalSlider {
+        id: fanSpeedSlider
+        Layout.fillWidth: true
+        name: "set"
+        halPin.direction: HalPin.IO
+        visible: false
+        minimumValue: 0
+        maximumValue: 255
+        stepSize: 1
+        updateValueWhileDragging: true
+        tickmarksEnabled: false
+        minimumValueVisible: false
+        maximumValueVisible: false
+        valueVisible: false
     }
 }
 

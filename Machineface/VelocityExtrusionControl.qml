@@ -13,6 +13,7 @@ ColumnLayout {
     property bool wasConnected: false
 
     visible: halRemoteComponent.ready || wasConnected
+    enabled:  halRemoteComponent.connected
 
     HalRemoteComponent {
         id: halRemoteComponent
@@ -20,96 +21,91 @@ ColumnLayout {
         halrcompUri: halrcompService.uri
         ready: (halrcmdService.ready && halrcompService.ready) || connected
         name: "fdm-ve-params"
-        containerItem: container
+        containerItem: root
         create: false
         onErrorStringChanged: console.log(errorString)
         onConnectedChanged: root.wasConnected = true
     }
 
-    ColumnLayout {
-        id: container
-        enabled:  halRemoteComponent.connected
-        Layout.fillWidth: true
+    Label {
+        font.bold: true
+        text: root.labelName
+    }
+
+    GridLayout {
+        columns: 2
 
         Label {
-            font.bold: true
-            text: root.labelName
+            text: qsTr("Filament diameter:")
         }
-        GridLayout {
-            columns: 2
 
-            Label {
-                text: qsTr("Filament diameter:")
-            }
+        HalSpinBox {
+            Layout.fillWidth: true
+            name: "filament-dia"
+            suffix: "mm"
+            minimumValue: 0.0
+            maximumValue: 10.0
+            decimals: 3
+            stepSize: 0.05
+            halPin.direction: HalPin.IO
+        }
 
-            HalSpinBox {
-                Layout.fillWidth: true
-                name: "filament-dia"
-                suffix: "mm"
-                minimumValue: 0.0
-                maximumValue: 10.0
-                decimals: 3
-                stepSize: 0.05
-                halPin.direction: HalPin.IO
-            }
+        Label {
+            text: qsTr("Retract velocity:")
+        }
 
-            Label {
-                text: qsTr("Retract velocity:")
-            }
+        HalSpinBox {
+            Layout.fillWidth: true
+            name: "retract-vel"
+            suffix: "mm/s"
+            minimumValue: 0.0
+            maximumValue: 100.0
+            decimals: 1
+            stepSize: 1.0
+            halPin.direction: HalPin.IO
+        }
 
-            HalSpinBox {
-                Layout.fillWidth: true
-                name: "retract-vel"
-                suffix: "mm/s"
-                minimumValue: 0.0
-                maximumValue: 100.0
-                decimals: 1
-                stepSize: 1.0
-                halPin.direction: HalPin.IO
-            }
+        Label {
+            text: qsTr("Retract length:")
+        }
 
-            Label {
-                text: qsTr("Retract length:")
-            }
+        HalSpinBox {
+            Layout.fillWidth: true
+            name: "retract-len"
+            suffix: "mm"
+            minimumValue: 0.0
+            maximumValue: 10.0
+            decimals: 2
+            stepSize: 0.05
+            halPin.direction: HalPin.IO
+        }
 
-            HalSpinBox {
-                Layout.fillWidth: true
-                name: "retract-len"
-                suffix: "mm"
-                minimumValue: 0.0
-                maximumValue: 10.0
-                decimals: 2
-                stepSize: 0.05
-                halPin.direction: HalPin.IO
-            }
+        Label {
+            text: qsTr("Extrude scale:")
+        }
 
-            Label {
-                text: qsTr("Extrude scale:")
-            }
+        HalSpinBox {
+            Layout.fillWidth: true
+            name: "extrude-scale"
+            minimumValue: 0.0
+            maximumValue: 10.0
+            decimals: 2
+            stepSize: 0.05
+            halPin.direction: HalPin.IO
+        }
 
-            HalSpinBox {
-                Layout.fillWidth: true
-                name: "extrude-scale"
-                minimumValue: 0.0
-                maximumValue: 10.0
-                decimals: 2
-                stepSize: 0.05
-                halPin.direction: HalPin.IO
-            }
+        Label {
+            text: qsTr("Accel. adj. gain:")
+        }
 
-            Label {
-                text: qsTr("Accel. adj. gain:")
-            }
-
-            HalSpinBox {
-                Layout.fillWidth: true
-                name: "accel-adj-gain"
-                minimumValue: 0.0
-                maximumValue: 10.0
-                decimals: 3
-                stepSize: 0.01
-                halPin.direction: HalPin.IO
-            }
+        HalSpinBox {
+            Layout.fillWidth: true
+            name: "accel-adj-gain"
+            minimumValue: 0.0
+            maximumValue: 10.0
+            decimals: 3
+            stepSize: 0.01
+            halPin.direction: HalPin.IO
         }
     }
 }
