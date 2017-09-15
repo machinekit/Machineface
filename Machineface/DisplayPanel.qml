@@ -48,6 +48,8 @@ DisplayPanelBase {
         }
     }
 
+    SmartplugControl { }
+
     Item {
         Layout.fillHeight: true
     }

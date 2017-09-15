@@ -33,5 +33,6 @@
         <file>Machineface/DisplayPanelBase.qml</file>
         <file>Machineface/Singletons/Info.qml</file>
         <file>Machineface/Singletons/qmldir</file>
+        <file>Machineface/SmartplugControl.qml</file>
     </qresource>
 </RCC>
