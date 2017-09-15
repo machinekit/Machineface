@@ -3,9 +3,10 @@ import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.0
+import Machinekit.Application 1.0
+import "./Singletons"
 
 Dialog {
-    property string version: "0.9"
     id: aboutDialog
     title: qsTr("About Machineface")
 
@@ -29,7 +30,7 @@ Dialog {
 
             Label {
                 Layout.fillWidth: true
-                text: "Machineface " + aboutDialog.version
+                text: "Machineface " + Info.version
                 font.pixelSize: dummyLabel.font.pixelSize * 1.5
                 font.bold: true
             }
@@ -37,10 +38,13 @@ Dialog {
             Label {
                 id: infoText
                 Layout.fillWidth: true
-                text: "Copyright 2014 by Alexander Rössler<br>"
-                      + "at TheCoolTool GmbH (<a href='http://www.thecooltool.com/'>http://www.thecooltool.com/</a>)<br>"
+                text: "Copyright 2014-2017 by Alexander Rössler<br>"
+                      + "This UI is based on <a href='https://github.com/qtquickvcp/qtquickvcp'>QtQuickVcp</a> Revision: " + Revision.name + "<br>"
                       + "<br>"
-                      + "<a href='https://github.com/strahlex/Machineface'>Machineface</a> is licensed under the <a href='http://www.gnu.org/licenses/agpl-3.0.html'>GNU Affero General Public License, version 3</a>."
+                      + "Development sponsored by:<br>"
+                      + "TheCoolTool GmbH (<a href='http://www.thecooltool.com/'>http://www.thecooltool.com/</a>)<br>"
+                      + "<br>"
+                      + "<a href='https://github.com/qtquickvcp/Machineface'>Machineface</a> is licensed under the <a href='http://www.gnu.org/licenses/agpl-3.0.html'>GNU Affero General Public License, version 3</a>."
                 textFormat: Text.StyledText
                 elide: Text.ElideRight
                 onLinkActivated: Qt.openUrlExternally(link)
