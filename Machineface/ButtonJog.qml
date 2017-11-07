@@ -11,7 +11,7 @@ import Machinekit.HalRemote 1.0
 import Machinekit.HalRemote.Controls 1.0
 
 ApplicationItem {
-    property var numberModel: defaultHandler.incrementsModel //numberModelBase.concat(["inf"])
+    property var numberModel: defaultHandler.incrementsModel
     property var numberModelReverse: defaultHandler.incrementsModelReverse
     property var axisColors: ["#F5A9A9", "#A9F5F2", "#81F781", "#D2B48C", "#D28ED0", "#CFCC67"]
     property color allColor: "#DDD"
@@ -69,7 +69,7 @@ ApplicationItem {
                 width: height
 
                 JogDistanceHandler {
-                    property int buttonBaseSize: container.height / (incrementsModel.length*2+1)
+                    readonly property int buttonBaseSize: container.height / (incrementsModel.length*2+1)
 
                     id: xyHandler
                     continuousText: "inf"
