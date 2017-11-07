@@ -19,19 +19,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Disconnect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;About Machineface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sh&amp;utdown</source>
+        <source>&amp;Disconnect from Session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>E&amp;xit</source>
+        <source>Sh&amp;utdown Session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xit User Interface</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
