@@ -109,8 +109,6 @@ ServiceWindow {
         anchors.top: parent.top
         anchors.bottom: applicationProgressBar.top
         anchors.margins: Screen.pixelDensity
-
-
     }
 
     ApplicationProgressBar {
