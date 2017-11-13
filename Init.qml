@@ -25,11 +25,10 @@ Item {
         localVisible: true
         remoteVisible: false
         lookupMode: ServiceDiscovery.MulticastDNS
-        applications: [
-            ApplicationDescription {
-                sourceDir: "./Machineface/"
-            }
-        ]
-        instanceFilter: ServiceDiscoveryFilter{ name: "" }
+        instanceFilter { name: "" }
+
+        ApplicationDescription {
+            sourceDir: "./Machineface/"
+        }
     }
 }
