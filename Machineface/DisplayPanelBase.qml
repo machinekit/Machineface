@@ -4,13 +4,20 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.0
 
 ScrollView {
-    default property alias data: container.data
+    default property alias data: layout.data
     id: root
     horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+    implicitWidth: container.width
 
-    ColumnLayout {
+    Item {
         id: container
-        width: root.width - Screen.pixelDensity * 4
-        spacing: Screen.pixelDensity
+        implicitWidth: layout.width + Screen.pixelDensity * 8
+        implicitHeight: layout.height + Screen.pixelDensity * 2
+
+        ColumnLayout {
+            anchors.horizontalCenter: parent.horizontalCenter
+            id: layout
+            spacing: Screen.pixelDensity
+        }
     }
 }
