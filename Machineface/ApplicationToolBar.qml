@@ -73,6 +73,15 @@ Rectangle {
                 text: "\ue047"; color: systemPalette.light
             }
         }
+        TouchButton {
+            Layout.fillWidth: true
+            Layout.preferredHeight: width
+            action : EditProgramAction { }
+            iconSource: ""
+            FontIcon { // mode_edit
+                text: "\ue254"; color: systemPalette.light
+            }
+        }
 
         Item {
             Layout.fillHeight: true
