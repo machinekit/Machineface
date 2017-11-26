@@ -7,5 +7,12 @@ Tab {
     id: tab
     title: qsTr("Jog")
 
-    ButtonJog { }
+    Item {
+        ButtonJog {
+            width: Math.min(parent.width * 0.85, parent.height)
+            height: width
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+        }
+    }
 }
