@@ -36,9 +36,9 @@ ServiceWindow {
     height: 600
     title: applicationCore.applicationName + (d.machineName == "" ? "" :" - " +  d.machineName)
 
-    Item {
+    QtObject {
         id: d
-        property string machineName: applicationCore.status.config.name
+        readonly property string machineName: applicationCore.status.config.name
     }
 
     FontLoader {
