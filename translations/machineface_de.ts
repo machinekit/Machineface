@@ -36,30 +36,30 @@
     </message>
     <message>
         <source>&amp;Disconnect from Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Von Sitzung &amp;trennen</translation>
     </message>
     <message>
         <source>Sh&amp;utdown Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Sitzung &amp;beenden</translation>
     </message>
     <message>
         <source>E&amp;xit User Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzeroberfläche schli&amp;eßen</translation>
     </message>
 </context>
 <context>
     <name>ButtonJog</name>
     <message>
         <source>Move </source>
-        <translation>Bewegen</translation>
+        <translation>Bewegen </translation>
     </message>
     <message>
         <source> and </source>
-        <translation>und</translation>
+        <translation> und </translation>
     </message>
     <message>
         <source> axis to 0</source>
-        <translation>Achse zu 0</translation>
+        <translation> Achse zu 0</translation>
     </message>
     <message>
         <source>Select axis action</source>
@@ -71,11 +71,11 @@
     </message>
     <message>
         <source>Touch off </source>
-        <translation>Referenzieren</translation>
+        <translation>Referenzieren </translation>
     </message>
     <message>
         <source> axis</source>
-        <translation>Achse</translation>
+        <translation> Achse</translation>
     </message>
     <message>
         <source>Change extruder</source>
@@ -87,7 +87,7 @@
     </message>
     <message>
         <source>Extruder </source>
-        <translation>Extrudierer</translation>
+        <translation>Extrudierer </translation>
     </message>
     <message>
         <source>Velocity</source>
